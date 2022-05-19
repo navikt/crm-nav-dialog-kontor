@@ -22,7 +22,7 @@
                 {
                     "package": "crm-shared-flowComponents",
                     "versionNumber": "0.2.0.LATEST"
-                }
+                },
                 {
                     "package": "crm-henvendelse",
                     "versionNumber": "0.58.0.LATEST"
