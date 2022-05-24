@@ -16,6 +16,10 @@
         <apexClass>LoggerUtility</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+     <classAccesses>
+        <apexClass>DIA_ThreadViewController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <classAccesses>
         <apexClass>UN_DoneProducerLegacy</apexClass>
         <enabled>true</enabled>

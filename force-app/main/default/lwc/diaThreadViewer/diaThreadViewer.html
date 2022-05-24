@@ -1,0 +1,7 @@
+<template>
+    <section role="log" id="scroller" class="slds-box scroller slds-scrollable_y">
+        <template for:each={messages} for:item="message">
+            <c-crm-messaging-Message-Container message={message} key={message.Id}></c-crm-messaging-Message-Container>
+        </template>
+    </section>
+</template>
