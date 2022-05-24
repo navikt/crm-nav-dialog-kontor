@@ -105,8 +105,12 @@
                                 if:true={expanded}
                                 class="slds-box slds-theme_shade slds-is-relative slds-m-top_x-small slds-m-horizontal_xx-small slds-p-around_medium"
                             >
-                                <div if:true={isThread}>This is a thread</div>
-                                <div if:true={isConvNote}>This is a Conversation note</div>
+                                <div if:true={isThread} style="background-color: white">
+                                    <c-dia-thread-viewer thread-id={row.record.recordId}></c-dia-thread-viewer>
+                                </div>
+                                <!--<div if:true={isConvNote}>
+                                    <c-dia-thread-viewer conv-note-id={row.record.recordId}></c-dia-thread-viewer>
+                                </div>-->
                                 <lightning-spinner
                                     if:true={loadingDetails}
                                     size="small"

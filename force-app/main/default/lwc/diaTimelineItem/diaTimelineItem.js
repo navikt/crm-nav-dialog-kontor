@@ -25,7 +25,7 @@ export default class TimelineItem extends NavigationMixin(LightningElement) {
         let fieldArray = [];
         let fieldCounter = 0;
         if (this.row && this.row.record.expandedFields && !this.row.record.expandedFields.length !== 0) {
-            this.row.record.expandedFields.forEach(field => {
+            this.row.record.expandedFields.forEach((field) => {
                 fieldArray.push({ id: fieldCounter, apiName: field });
                 fieldCounter++;
             });
@@ -142,8 +142,6 @@ export default class TimelineItem extends NavigationMixin(LightningElement) {
     }
 
     get isThread() {
-        console.log('SOBJECT KIND: ' + this.sObjectKind);
-        console.log('SOBJECT KIND: ' + JSON.stringify(this.row?.record, null, 2));
         return this.sObjectKind === 'Thread__c';
     }
 
