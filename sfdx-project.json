@@ -12,6 +12,10 @@
                     "versionNumber": "0.151.0.LATEST"
                 },
                 {
+                    "package": "crm-platform-access-control",
+                    "versionNumber": "0.83.0.LATEST"
+                },
+                {
                     "package": "crm-journal-utilities",
                     "versionNumber": "0.14.0.LATEST"
                 },
@@ -44,6 +48,7 @@
     "packageAliases": {
         "crm-nav-dialog-kontor": "0Ho7U000000000pSAA",
         "crm-henvendelse": "0Ho2o000000fxXfCAI",
+        "crm-platform-access-control": "0Ho2o0000008OR3CAM",
         "crm-journal-utilities": "0Ho2o000000fxXkCAI",
         "crm-platform-base": "0Ho2o0000008ORmCAM",
         "crm-platform-integration": "0Ho2o0000008ORrCAM",
