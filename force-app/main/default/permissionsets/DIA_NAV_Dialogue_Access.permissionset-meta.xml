@@ -46,7 +46,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Conversation_Note__c.CRM_Conversation_Note__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
