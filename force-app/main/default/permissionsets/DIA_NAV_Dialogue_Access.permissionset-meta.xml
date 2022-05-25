@@ -180,12 +180,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Message__c.CRM_Message_Content_Text__c</field>
+        <field>Message__c.CRM_Message_Content__c</field>
         <readable>true</readable>
     </fieldPermissions>
-    <fieldPermissions>
+        <fieldPermissions>
         <editable>false</editable>
-        <field>Message__c.CRM_Message_Content__c</field>
+        <field>Conversation_Note__c.CRM_Message_Content__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
