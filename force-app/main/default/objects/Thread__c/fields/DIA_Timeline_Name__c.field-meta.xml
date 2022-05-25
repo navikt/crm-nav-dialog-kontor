@@ -7,10 +7,21 @@
     &apos;STO&apos;, &apos;Skriv til oss - &apos;,
     &apos;CHAT&apos;, &apos;Chat - &apos;,
     &apos;Tråd&apos;
+) + DIA_Timeline_Category__c
++ 
+IF(CRM_Number_of_unread_Messages__c != 0,
+&apos; (&apos; +
+TEXT(CRM_Number_of_unread_Messages__c) +
+IF(CRM_Number_of_unread_Messages__c &gt; 1,
+&apos; uleste meldinger)&apos;,
+&apos; ulest melding)&apos;
+			),
+            &apos;&apos;
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Timeline Name</label>
     <required>false</required>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

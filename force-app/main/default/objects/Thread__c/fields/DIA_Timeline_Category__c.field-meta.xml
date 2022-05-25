@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DIA_Timeline_Category__c</fullName>
+    <description>Field defining the most descriptive categorization of the thread</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(CRM_Theme__c), IF(ISPICKVAL(STO_Category__c, &apos;&apos;), &apos;&apos;, &apos; - &apos; + TEXT(STO_Category__c)), &apos; - &apos; + CRM_Theme__r.Name)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Timeline Category</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
