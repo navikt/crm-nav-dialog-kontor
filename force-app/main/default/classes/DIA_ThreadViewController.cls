@@ -1,7 +1,33 @@
 public with sharing class DIA_ThreadViewController {
     @AuraEnabled(cacheable=true)
     public static List<Message__c> getMessagesFromThread(Id threadId) {
-        return CRM_MessageHelper.getMessagesFromThread(threadId);
+        try {
+            List<Message__c> msgList = new List<Message__c>();
+            for (Message__c msg : [
+                SELECT
+                    Id,
+                    CRM_Message_Content__r.CRM_Message_Text__c,
+                    CRM_Type__c,
+                    CRM_Event_Type__c,
+                    CRM_Sent_date__c,
+                    CRM_From_User__c,
+                    CRM_From_Contact__c,
+                    CRM_From_First_Name__c,
+                    CRM_External_Message__c,
+                    CRM_From_Label__c
+                FROM Message__c
+                WHERE CRM_Thread__c = :threadId
+                ORDER BY CRM_Sent_date__c ASC
+            ]) {
+                msg.CRM_Message_Text__c = String.isBlank(msg.CRM_Message_Content__r.CRM_Message_Text__c)
+                    ? Label.DIA_Message_No_Access
+                    : msg.CRM_Message_Content__r.CRM_Message_Text__c;
+                msgList.add(msg);
+            }
+            return msgList;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
     }
 
     @AuraEnabled(cacheable=true)
