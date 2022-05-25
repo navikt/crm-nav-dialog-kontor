@@ -65,6 +65,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Thread__c.DIA_Timeline_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Conversation_Note__c.CRM_Created_By_Ident__c</field>
         <readable>true</readable>
     </fieldPermissions>
