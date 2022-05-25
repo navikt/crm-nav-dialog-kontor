@@ -38,9 +38,10 @@
                                 >
                                     <!-- TITLE -->
                                     <h3 class="slds-truncate" title={row.record.title}>
-                                        <a onclick={openRecord}>
+                                        <a onclick={openRecord} if:false={isThread}>
                                             <strong>{row.record.title}</strong>
                                         </a>
+                                        <strong if:true={isThread}>{row.record.title}</strong>
                                     </h3>
                                     <!-- RECORRUING TASK -->
                                     <!-- <div if:true={isTask} class="slds-no-flex">
