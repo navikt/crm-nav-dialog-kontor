@@ -67,9 +67,6 @@
         },
         "securitySettings": {
             "enableAdminLoginAsAnyUser": true
-        },
-        "sessionSettings": {
-            "forceRelogin": false
         }
     }
 }
