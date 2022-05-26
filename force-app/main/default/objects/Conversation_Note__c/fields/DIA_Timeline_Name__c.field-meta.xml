@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DIA_Timeline_Name__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(CRM_Theme_Group__c), &apos;Øvrige&apos;,
+IF(AND(NOT(ISBLANK(CRM_Theme__c)),(CRM_Theme__r.Name != &apos;Pensjon&apos;)), CRM_Theme_Group__r.Name + &apos;, &apos; + CRM_Theme__r.Name,
+IF(AND(NOT(ISBLANK(CRM_Subtheme__c)),(CRM_Theme__r.Name == &apos;Pensjon&apos;)),CRM_Theme_Group__r.Name + &apos;, &apos; + CRM_Subtheme__r.Name,CRM_Theme_Group__r.Name)))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Timeline Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

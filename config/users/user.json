@@ -1,11 +1,12 @@
 {
-    "LastName": "Integration",
-    "Alias": "integr1",
+    "FirstName": "Didrik",
+    "LastName": "Dialog",
+    "Alias": "diddia",
     "TimeZoneSidKey": "Europe/Paris",
     "LocaleSidKey": "NO",
     "EmailEncodingKey": "UTF-8",
     "LanguageLocaleKey": "en_US",
-    "profileName": "Standard User",
-    "permsets": [],
+    "profileName": "Standard Platform User",
+    "permsets": ["DIA_NAV_Dialogue_Access", "Timeline_Access"],
     "generatePassword": true
 }

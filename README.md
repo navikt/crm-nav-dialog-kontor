@@ -1,35 +1,8 @@
-Template repository for CRM packages. Necessary steps after using template:
+# crm-nav-dialog-kontor
 
-1. Add secrets (see [description](https://github.com/navikt/crm-workflows-base))
-    - PROD_SFDX_URL `[REQUIRED]` (contact #crm-platform-team on Slack)
-    - PREPROD_SFDX_URL `[REQUIRED]` (contact #crm-platform-team on Slack)
-    - INTEGRATION_SANDBOX_SFDX_URL `[REQUIRED]` (contact #crm-platform-team on Slack)
-    - PACKAGE_KEY `[REQUIRED]`
-    - DEPLOYMENT_PAT `[REQUIRED]` ([documentation](https://docs.github.com/en/github/authenticating-to-github/creating-a-personal-access-token), give repo access)
-    - UAT_SFDX_URL `[OPTIONAL]`
-    - DEV_SFDX_URL `[OPTIONAL]`
-    - DEPLOY_TO_DEV_AFTER_PACKAGE_CREATION `[OPTIONAL]`
-    - DEPLOY_TO_UAT_AFTER_PACKAGE_CREATION `[OPTIONAL]`
-2. Create an init release in GitHub (not pre-release)
-    - Important! Release creation will fail if an init release has not been made!
-3. Create file `.sfdx/sfdx-config.json` (to create package)
-    - Add `{"defaultdevhubusername": "[your_devhub_user]","defaultusername": "" }` to it and change the DevHub username
-4. Create a package in SFDX
-    - `sfdx force:package:create -n YourPackageName -t Unlocked -r force-app`
-    - If you receive an error, contact #crm-platform-team on Slack to create the package
-5. Create an test metadata file in `force-app` folder to initiate init package creation (can be just a CustomLabel file)
-6. Push changes made to `force-app` and `sfdx-project.json` (remember to fetch Package ID if #crm-platform-team creates the package)
-
-Navn på prosjekt
-================
 [![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/navikt/crm-shared-template/blob/master/LICENSE)
 
-
-Kort beskrivelse av hva prosjektet dreier seg om.
-
-# Komme i gang
-
-Hvordan bygge, teste og kjøre koden viss aktuelt.
+Kjernefunksjonalitet for dialoghåndtering for NAV-enheter via Salesforce.
 
 ---
 
@@ -37,8 +10,11 @@ Hvordan bygge, teste og kjøre koden viss aktuelt.
 
 This package is dependant on the following packages
 
--   [XXXXXXXXXXXXX](https://github.com/navikt/XXXXXXXXXXXXX)
--   [XXXXXXXXXXXXX](https://github.com/navikt/XXXXXXXXXXXXX)
+-   [crm-henvendelse](https://github.com/navikt/crm-henvendelse)
+-   [crm-journal-utilities](https://github.com/navikt/crm-journal-utilities)
+-   [crm-platform-base](https://github.com/navikt/crm-platform-base)
+-   [crm-shared-user-notification](https://github.com/navikt/crm-shared-user-notification)
+-   [crm-shared-flowComponents](https://github.com/navikt/crm-shared-flowComponents)
 
 ## Installation
 
@@ -76,14 +52,6 @@ sfdx force:source:push
 sfdx force:org:open
 ```
 
-# Henvendelser
-
-Enten:
-Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på GitHub
-
-Eller:
-Spørsmål knyttet til koden eller prosjektet kan stilles til teamalias@nav.no
-
 ## For NAV-ansatte
 
-Interne henvendelser kan sendes via Slack i kanalen #teamkanal.
+Interne henvendelser kan sendes via Slack i kanalen #crm-platform-team.
