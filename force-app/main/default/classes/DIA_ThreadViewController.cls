@@ -30,6 +30,45 @@ public with sharing class DIA_ThreadViewController {
         }
     }
 
+    /**
+     * Get a thread by using the record ID passed from LWC. Can be either a thread ID by itself, or any other SF ID
+     * @author Stian Ruud Schikora | 05-26-2022
+     * @param recordId
+     * @return Id
+     **/
+    @AuraEnabled
+    public static Id getThreadByRecordId(Id recordId) {
+        try {
+            if (recordId.getSobjectType().getDescribe().getName() == 'Thread__c')
+                return recordId;
+
+            return [SELECT Id FROM Thread__c WHERE CRM_Related_Object__c = :recordId LIMIT 1]?.Id;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
+    /**
+     * Get a conversation note by using the api reference as input
+     * @author Stian Ruud Schikora | 05-26-2022
+     * @param recordId
+     * @return Id
+     **/
+    @AuraEnabled(cacheable=true)
+    public static String getDialogueByApiReference2(String reference) {
+        Map<String, String> retMap = new Map<String, String>();
+        try {
+            List<List<SObject>> dialogs = [
+                FIND :reference
+                IN ALL FIELDS
+                RETURNING Thread__c(Id), Conversation_Note__c(Id)
+            ];
+            return dialogs[0].size() > 0 ? JSON.serialize(dialogs[0][0]) : JSON.serialize(dialogs[1][0]);
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
     @AuraEnabled(cacheable=true)
     public static List<Conversation_Note__c> getConvNotes(Id convNoteId) {
         List<Message__c> returnMsgs = new List<Message__c>();
