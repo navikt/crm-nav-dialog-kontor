@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>51.0</apiVersion>
-    <isExposed>false</isExposed>
+    <isExposed>true</isExposed>
+    <masterLabel>NAV Dialog Messaging</masterLabel>
+    <description>Dialogue component for displaying threads with theme access control</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
 </LightningComponentBundle>

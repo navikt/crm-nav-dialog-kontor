@@ -1,5 +1,6 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import getmessages from '@salesforce/apex/DIA_ThreadViewController.getMessagesFromThread';
+import getThread from '@salesforce/apex/DIA_ThreadViewController.getThreadByRecordId';
 import getJournalInfo from '@salesforce/apex/CRM_MessageHelper.getJournalEntries';
 import { subscribe, unsubscribe } from 'lightning/empApi';
 
@@ -15,6 +16,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 
 export default class diaMessagingThreadViewer extends LightningElement {
+    @api recordId;
     createdbyid;
     usertype;
     otheruser;
@@ -30,12 +32,13 @@ export default class diaMessagingThreadViewer extends LightningElement {
     @track langBtnLock = false;
     langBtnAriaToggle = false;
 
+    getThreadError = false;
+
     @api textTemplate; //Support for conditional text template as input
     //Constructor, called onload
     connectedCallback() {
-        if (this.thread) {
-            this.threadid = this.thread.Id;
-        }
+        console.log('RECORD ID: ' + this.recordId);
+        this.getThreadByRecordId();
         this.handleSubscribe();
         this.scrolltobottom();
     }
@@ -49,6 +52,17 @@ export default class diaMessagingThreadViewer extends LightningElement {
         if (test) {
             test.focus();
         }
+    }
+
+    getThreadByRecordId() {
+        getThread({ recordId: this.recordId })
+            .then((threadId) => {
+                this.threadid = threadId;
+            })
+            .catch((error) => {
+                this.getThreadError = true;
+                console.log('Failed to get thread: ' + JSON.stringify(error, null, 2));
+            });
     }
 
     //Handles subscription to streaming API for listening to changes to auth status
@@ -110,7 +124,7 @@ export default class diaMessagingThreadViewer extends LightningElement {
             this.showspinner = true;
             const textInput = event.detail.fields;
             // If messagefield is empty, stop the submit
-            textInput.CRM_Thread__c = this.thread.Id;
+            textInput.CRM_Thread__c = this.threadid;
             textInput.CRM_From_User__c = userId;
 
             if (textInput.CRM_Message_Text__c == null || textInput.CRM_Message_Text__c === '') {
@@ -170,8 +184,6 @@ export default class diaMessagingThreadViewer extends LightningElement {
     }
 
     handlesuccess(event) {
-        this.recordId = event.detail;
-
         this.quickTextCmp.clear();
         const inputFields = this.template.querySelectorAll('.msgText');
 
@@ -180,7 +192,6 @@ export default class diaMessagingThreadViewer extends LightningElement {
                 field.reset();
             });
         }
-        //this.showspinner = false;
         this.showspinner = false;
         this.refreshMessages();
     }
