@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
-import getDialogByRef from '@salesforce/apex/DIA_ThreadViewController.getDialogueByApiReference2';
+import getDialogByRef from '@salesforce/apex/DIA_ThreadViewController.getDialogueByApiReference';
 import NAV_TASK_API_REF_FIELD from '@salesforce/schema/NavTask__c.NKS_Henvendelse_BehandlingsId__c';
 
 const THREAD_TYPE = 'Thread__c';
