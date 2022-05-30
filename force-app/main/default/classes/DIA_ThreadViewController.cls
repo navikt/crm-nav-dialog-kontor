@@ -86,7 +86,7 @@ public with sharing class DIA_ThreadViewController {
         for (Conversation_Note__c convNote : convNotes) {
             convNote.CRM_Conversation_Note__c = String.isBlank(convNote.CRM_Message_Content__r.CRM_Message_Text__c)
                 ? Label.DIA_Message_No_Access
-                : convNote.CRM_Message_Content__r.CRM_Message__c;
+                : convNote.CRM_Message_Content__r.CRM_Message_Text__c;
         }
 
         return convNotes;
