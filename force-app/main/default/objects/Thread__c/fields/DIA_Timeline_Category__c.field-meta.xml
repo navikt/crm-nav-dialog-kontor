@@ -3,7 +3,7 @@
     <fullName>DIA_Timeline_Category__c</fullName>
     <description>Field defining the most descriptive categorization of the thread</description>
     <externalId>false</externalId>
-    <formula>IF(ISBLANK(CRM_Theme__c), IF(ISPICKVAL(STO_Category__c, &apos;&apos;), &apos;&apos;, &apos; - &apos; + TEXT(STO_Category__c)), &apos; - &apos; + CRM_Theme__r.Name)</formula>
+    <formula>IF(ISBLANK(CRM_Theme__c), IF(ISPICKVAL(STO_Category__c, &apos;&apos;), &apos;&apos;, TEXT(STO_Category__c)), CRM_Theme__r.Name)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Timeline Category</label>
     <required>false</required>
