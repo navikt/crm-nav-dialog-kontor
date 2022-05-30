@@ -70,24 +70,25 @@ public with sharing class DIA_ThreadViewController {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<Conversation_Note__c> getConvNotes(Id convNoteId) {
-        List<Message__c> returnMsgs = new List<Message__c>();
-        Conversation_Note__c masterNote = [
-            SELECT CRM_Henvendelse_BehandlingskjedeId__c
-            FROM Conversation_Note__c
-            WHERE Id = :convNoteId
-        ];
-
-        return [
+    public static List<Conversation_Note__c> getConvNote(Id convNoteId) {
+        List<Conversation_Note__c> convNotes = [
             SELECT
                 Id,
                 CRM_Date_Time_Registered__c,
                 CRM_Created_By_Ident__c,
                 CRM_Created_By_NAV_Unit__c,
-                CRM_Conversation_Note__c,
+                CRM_Message_Content__r.CRM_Message__c,
                 CreatedById
             FROM Conversation_Note__c
-            WHERE CRM_Henvendelse_BehandlingskjedeId__c = :masterNote.CRM_Henvendelse_BehandlingskjedeId__c
+            WHERE Id = :convNoteId
         ];
+
+        for (Conversation_Note__c convNote : convNotes) {
+            convNote.CRM_Conversation_Note__c = String.isBlank(convNote.CRM_Message_Content__r.CRM_Message__c)
+                ? Label.DIA_Message_No_Access
+                : convNote.CRM_Message_Content__r.CRM_Message__c;
+        }
+
+        return convNotes;
     }
 }
