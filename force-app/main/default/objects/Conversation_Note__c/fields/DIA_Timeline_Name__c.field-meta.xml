@@ -8,6 +8,7 @@ IF(AND(NOT(ISBLANK(CRM_Subtheme__c)),(CRM_Theme__r.Name == &apos;Pensjon&apos;))
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Timeline Name</label>
     <required>false</required>
+    <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>
