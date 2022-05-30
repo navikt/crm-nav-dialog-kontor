@@ -109,9 +109,9 @@
                                 <div if:true={isThread} style="background-color: white">
                                     <c-dia-thread-viewer thread-id={row.record.recordId}></c-dia-thread-viewer>
                                 </div>
-                                <!--<div if:true={isConvNote}>
-                                    <c-dia-thread-viewer conv-note-id={row.record.recordId}></c-dia-thread-viewer>
-                                </div>-->
+                                <div if:true={isConvNote}>
+                                    <c-dia-conv-note-viewer record-id={row.record.recordId}></c-dia-conv-note-viewer>
+                                </div>
                                 <lightning-spinner
                                     if:true={loadingDetails}
                                     size="small"

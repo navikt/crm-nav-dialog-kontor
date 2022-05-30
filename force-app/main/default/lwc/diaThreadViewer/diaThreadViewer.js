@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from 'lwc';
 import getmessages from '@salesforce/apex/DIA_ThreadViewController.getMessagesFromThread';
-import getconvnotes from '@salesforce/apex/DIA_ThreadViewController.getConvNotes';
+import getconvnote from '@salesforce/apex/DIA_ThreadViewController.getConvNote';
 
 export default class DiaThreadViewer extends LightningElement {
     @api threadId;
@@ -18,7 +18,7 @@ export default class DiaThreadViewer extends LightningElement {
         }
     }
 
-    @wire(getconvnotes, { convNoteId: '$convNoteId' }) //Calls apex and converts conversation notes into the message wrapper model
+    @wire(getconvnote, { convNoteId: '$convNoteId' }) //Calls apex and converts conversation notes into the message wrapper model
     wireNotes(result) {
         if (result.error) {
             this.error = result.error;
