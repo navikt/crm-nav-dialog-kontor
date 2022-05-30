@@ -55,7 +55,7 @@ public with sharing class DIA_ThreadViewController {
      * @return Id
      **/
     @AuraEnabled(cacheable=true)
-    public static String getDialogueByApiReference2(String reference) {
+    public static String getDialogueByApiReference(String reference) {
         Map<String, String> retMap = new Map<String, String>();
         try {
             List<List<SObject>> dialogs = [
