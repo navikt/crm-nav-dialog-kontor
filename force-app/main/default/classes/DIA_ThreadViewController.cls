@@ -77,14 +77,14 @@ public with sharing class DIA_ThreadViewController {
                 CRM_Date_Time_Registered__c,
                 CRM_Created_By_Ident__c,
                 CRM_Created_By_NAV_Unit__c,
-                CRM_Message_Content__r.CRM_Message__c,
+                CRM_Message_Content__r.CRM_Message_Text__c,
                 CreatedById
             FROM Conversation_Note__c
             WHERE Id = :convNoteId
         ];
 
         for (Conversation_Note__c convNote : convNotes) {
-            convNote.CRM_Conversation_Note__c = String.isBlank(convNote.CRM_Message_Content__r.CRM_Message__c)
+            convNote.CRM_Conversation_Note__c = String.isBlank(convNote.CRM_Message_Content__r.CRM_Message_Text__c)
                 ? Label.DIA_Message_No_Access
                 : convNote.CRM_Message_Content__r.CRM_Message__c;
         }
