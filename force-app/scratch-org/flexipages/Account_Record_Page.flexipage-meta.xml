@@ -116,7 +116,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>filterIsActive</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>headerIcon</name>
@@ -132,9 +132,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>picklistFilter1Label</name>
+                    <value>Tema</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>picklistFilter2Label</name>
+                    <value>Temagruppe</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>timelineParentField</name>
