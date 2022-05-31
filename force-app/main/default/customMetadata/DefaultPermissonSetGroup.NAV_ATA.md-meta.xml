@@ -4,6 +4,6 @@
     <protected>false</protected>
     <values>
         <field>PermissonSetGroup__c</field>
-        <value xsi:type="xsd:string">NAV_ATA</value>
+        <value xsi:type="xsd:string">NAV - ATA</value>
     </values>
 </CustomMetadata>
