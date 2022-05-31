@@ -1,5 +1,5 @@
-@isTest
-private class DIA_ThreadContentSharingHandler_Test {
+@IsTest
+private class DIA_ConvNoteContentSharingHandler_Test {
     
     @TestSetup
     private static void makeData(){
@@ -13,17 +13,11 @@ private class DIA_ThreadContentSharingHandler_Test {
         Id accountId = [SELECT Id FROM Account LIMIT 1].Id;
 
         //create thread with tow messages
-        Thread__c thread = (Thread__c) DIA_TestDataFactory.createRecord(new Thread__c(CRM_Account__c = accountId, CRM_Created_By_Ident__c='A12345'));
-        List<Message__c> messages=new List<Message__c>();
-        messages.add(new Message__c(CRM_Message_Text__c = 'TEST MESSAGE', CRM_Thread__c = thread.Id));
-        messages.add(new Message__c(CRM_Message_Text__c = 'TEST MESSAGE 2', CRM_Thread__c = thread.Id));
-        DIA_TestDataFactory.createRecordList(
-            messages
-        );
+        DIA_TestDataFactory.createRecord(new Conversation_Note__c(CRM_Account__c = accountId, CRM_Created_By_Ident__c='A12345'));
     }
 
     @IsTest
-    private static void testUpdateThreadTheme(){
+    private static void testUpdateConvNoteTheme(){
         //create common code theme
         Common_Code__c themePen=(Common_Code__c) DIA_TestDataFactory.createRecord(
             new Common_Code__c(CRM_Code__c='PEN', CRM_Archive_Theme__c=true, CRM_Code_Set__c='Tema')
@@ -34,9 +28,9 @@ private class DIA_ThreadContentSharingHandler_Test {
 
         Test.startTest();
         //set thread theme
-        Thread__c thread=[SELECT Id, CRM_Theme__c FROM Thread__c LIMIT 1];
-        thread.CRM_Theme__c=themePen.Id;
-        update thread;
+        Conversation_Note__c note=[SELECT Id, CRM_Theme__c FROM Conversation_Note__c LIMIT 1];
+        note.CRM_Theme__c=themePen.Id;
+        update note;
         Test.stopTest();
 
         System.assertEquals(
@@ -46,9 +40,9 @@ private class DIA_ThreadContentSharingHandler_Test {
         );
 
         System.assertEquals(
-            2,
+            1,
             [SELECT COUNT() FROM Message_Content__Share WHERE RowCause = 'Manual' AND UserOrGroupId = :penGroupId],
-            'Expected content be be shared with theme group PEN'
+            'Expected content to be shared with theme group PEN'
         );
     }
 }
