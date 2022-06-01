@@ -9,6 +9,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CRM_HenvendelseQuicktextController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CRM_MessageHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -116,6 +120,26 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Conversation_Note__c.CRM_Theme_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Conversation_Note__c.DIA_Theme_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Conversation_Note__c.DIA_Theme_Group_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Thread__c.DIA_Theme_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Thread__c.DIA_Theme_Group_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

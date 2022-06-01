@@ -60,11 +60,11 @@
     </values>
     <values>
         <field>FilterablePicklist1__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">DIA_Theme_Name__c</value>
     </values>
     <values>
         <field>FilterablePicklist2__c</field>
-        <value xsi:nil="true"/>
+        <value xsi:type="xsd:string">DIA_Theme_Group_Name__c</value>
     </values>
     <values>
         <field>SLDS_Dropdown_Icon__c</field>
