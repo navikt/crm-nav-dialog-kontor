@@ -4,8 +4,8 @@
     <assignments>
         <name>Assign_Journal_Details</name>
         <label>Assign Journal Details</label>
-        <locationX>50</locationX>
-        <locationY>758</locationY>
+        <locationX>176</locationX>
+        <locationY>638</locationY>
         <assignmentItems>
             <assignToReference>JOURNAL_ENTRY.CRM_Thread__c</assignToReference>
             <operator>Assign</operator>
@@ -84,29 +84,6 @@
             <stringValue>NAV_UNIT</stringValue>
         </value>
     </choices>
-    <decisions>
-        <description>Verify if a journal entry is to be created for the new Thread</description>
-        <name>Journal_Check</name>
-        <label>Journal Check</label>
-        <locationX>182</locationX>
-        <locationY>638</locationY>
-        <defaultConnectorLabel>No Journal Entry</defaultConnectorLabel>
-        <rules>
-            <name>Do_Journal</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>JOURNAL_TOGGLE.value</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Assign_Journal_Details</targetReference>
-            </connector>
-            <label>Do Journal</label>
-        </rules>
-    </decisions>
     <description>Screenflow to allow initiating a new dialogue with an end user.</description>
     <formulas>
         <description>Formula to determine if the thread is to be created as active or closed</description>
@@ -146,10 +123,10 @@
         <description>Inserts a new message record on the created thread</description>
         <name>Create_Message</name>
         <label>Create Message</label>
-        <locationX>182</locationX>
+        <locationX>176</locationX>
         <locationY>518</locationY>
         <connector>
-            <targetReference>Journal_Check</targetReference>
+            <targetReference>Assign_Journal_Details</targetReference>
         </connector>
         <inputAssignments>
             <field>CRM_From_User__c</field>
@@ -182,7 +159,7 @@
         <description>Inserts a new Thread record on the account.</description>
         <name>Create_Thread</name>
         <label>Create Thread</label>
-        <locationX>182</locationX>
+        <locationX>176</locationX>
         <locationY>398</locationY>
         <connector>
             <targetReference>Create_Message</targetReference>
@@ -224,7 +201,7 @@
         <description>Query the person record related to the account</description>
         <name>Get_Person</name>
         <label>Get Person</label>
-        <locationX>182</locationX>
+        <locationX>176</locationX>
         <locationY>158</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -249,7 +226,7 @@
     <screens>
         <name>New_Dialogue_Screen</name>
         <label>New Dialogue Screen</label>
-        <locationX>182</locationX>
+        <locationX>176</locationX>
         <locationY>278</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -317,65 +294,6 @@
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>New_Dialogue_Screen_Section2</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>New_Dialogue_Screen_Section2_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>JOURNAL_TOGGLE</name>
-                    <extensionName>flowruntime:toggle</extensionName>
-                    <fieldType>ComponentInstance</fieldType>
-                    <inputParameters>
-                        <name>label</name>
-                        <value>
-                            <stringValue>Journalfør?</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>messageToggleActive</name>
-                        <value>
-                            <stringValue>Ja</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>disabled</name>
-                        <value>
-                            <booleanValue>false</booleanValue>
-                        </value>
-                    </inputParameters>
-                    <inputParameters>
-                        <name>messageToggleInactive</name>
-                        <value>
-                            <stringValue>Nei</stringValue>
-                        </value>
-                    </inputParameters>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isRequired>true</isRequired>
-                    <storeOutputAutomatically>true</storeOutputAutomatically>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>New_Dialogue_Screen_Section2_Column2</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-        </fields>
-        <fields>
             <name>PERSON_NAV_CASES</name>
             <extensionName>c:crmPersonCaseOverview</extensionName>
             <fieldType>ComponentInstance</fieldType>
@@ -394,16 +312,6 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
-            <visibilityRule>
-                <conditionLogic>and</conditionLogic>
-                <conditions>
-                    <leftValueReference>JOURNAL_TOGGLE.value</leftValueReference>
-                    <operator>EqualTo</operator>
-                    <rightValue>
-                        <booleanValue>true</booleanValue>
-                    </rightValue>
-                </conditions>
-            </visibilityRule>
         </fields>
         <fields>
             <name>RESPONSE_OPTION</name>
@@ -426,7 +334,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>56</locationX>
+        <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Person</targetReference>
@@ -436,8 +344,8 @@
     <subflows>
         <name>Create_Journal_Entry</name>
         <label>Create Journal Entry</label>
-        <locationX>50</locationX>
-        <locationY>878</locationY>
+        <locationX>176</locationX>
+        <locationY>758</locationY>
         <flowName>CRM_Thread_Create_Journal_Entry</flowName>
         <inputAssignments>
             <name>Journal_Case_ID</name>

@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
+        <description>Call apex to check the sobject type of the API reference.</description>
+        <name>Get_Henvendelse_Object_Type</name>
+        <label>Get Henvendelse Object Type</label>
+        <locationX>314</locationX>
+        <locationY>638</locationY>
+        <actionName>DIA_FlowUtils</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Check_Object_Type</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>apiRefs</name>
+            <value>
+                <elementReference>Get_NAV_Task_Data.NKS_Henvendelse_BehandlingsId__c</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
         <name>Journal_Conversation_Note</name>
         <label>Journal Conversation Note</label>
         <locationX>314</locationX>
-        <locationY>878</locationY>
+        <locationY>998</locationY>
         <actionName>CRM_ConvNoteJournalHelper</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -52,7 +72,7 @@
         <name>Journal_Toast</name>
         <label>Journal Toast</label>
         <locationX>314</locationX>
-        <locationY>1094</locationY>
+        <locationY>1214</locationY>
         <actionName>c:fcFlowToaster</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -112,7 +132,7 @@
         <name>Check_Object_Type</name>
         <label>Check Object Type</label>
         <locationX>314</locationX>
-        <locationY>638</locationY>
+        <locationY>758</locationY>
         <defaultConnector>
             <isGoTo>true</isGoTo>
             <targetReference>No_Reference_Error_Screen</targetReference>
@@ -122,10 +142,10 @@
             <name>Is_Thread</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_NAV_Task_Data.NKS_Henvendelse_BehandlingsId__c</leftValueReference>
-                <operator>StartsWith</operator>
+                <leftValueReference>Get_Henvendelse_Object_Type</leftValueReference>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>a0L</stringValue>
+                    <stringValue>Thread__c</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -137,10 +157,10 @@
             <name>Is_Conversation_Note</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_NAV_Task_Data.NKS_Henvendelse_BehandlingsId__c</leftValueReference>
-                <operator>StartsWith</operator>
+                <leftValueReference>Get_Henvendelse_Object_Type</leftValueReference>
+                <operator>EqualTo</operator>
                 <rightValue>
-                    <stringValue>a0J</stringValue>
+                    <stringValue>Conversation_Note__c</stringValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -175,7 +195,7 @@
         <name>Get_Conversation_Note</name>
         <label>Get Conversation Note</label>
         <locationX>314</locationX>
-        <locationY>758</locationY>
+        <locationY>878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Journal_Conversation_Note</targetReference>
@@ -247,7 +267,7 @@
         <name>Get_Thread_Info</name>
         <label>Get Thread Info</label>
         <locationX>50</locationX>
-        <locationY>758</locationY>
+        <locationY>878</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Journal_Thread</targetReference>
@@ -275,7 +295,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Check_Object_Type</targetReference>
+            <targetReference>Get_Henvendelse_Object_Type</targetReference>
         </connector>
         <fields>
             <name>Person_NAV_Cases_0</name>
@@ -296,6 +316,11 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>EMPTY</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Journalfør</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -329,7 +354,7 @@
         <name>Journal_Thread</name>
         <label>Journal Thread</label>
         <locationX>50</locationX>
-        <locationY>878</locationY>
+        <locationY>998</locationY>
         <connector>
             <targetReference>Journal_Toast</targetReference>
         </connector>
