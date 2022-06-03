@@ -45,4 +45,15 @@ public class DIA_ThreadViewController_TEST {
 
         System.assertNotEquals(null, dialogue);
     }
+
+    @isTest
+    static void testInsertNewMessage() {
+        Thread__c thread = (Thread__c) DIA_TestDataFactory.createRecord(new Thread__c());
+
+        Test.startTest();
+        DIA_ThreadViewController.insertNewMessage('testing', thread.Id);
+        Test.stopTest();
+
+        System.assertNotEquals(0, [SELECT COUNT() FROM Message__c]);
+    }
 }

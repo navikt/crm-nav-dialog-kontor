@@ -48,6 +48,20 @@ public with sharing class DIA_ThreadViewController {
         }
     }
 
+    @AuraEnabled
+    public static void insertNewMessage(String messageText, Id threadId) {
+        try {
+            insert new Message__c(
+                CRM_Thread__c = threadId,
+                CRM_From_User__c = UserInfo.getUserId(),
+                CRM_Message_Text__c = messageText
+            );
+        } catch (Exception ex) {
+            //Error occurred when inserting message
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
     /**
      * Get a conversation note by using the api reference as input
      * @author Stian Ruud Schikora | 05-26-2022

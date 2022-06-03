@@ -1,6 +1,7 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import getmessages from '@salesforce/apex/DIA_ThreadViewController.getMessagesFromThread';
 import getThread from '@salesforce/apex/DIA_ThreadViewController.getThreadByRecordId';
+import createMessage from '@salesforce/apex/DIA_ThreadViewController.insertNewMessage';
 import getJournalInfo from '@salesforce/apex/CRM_MessageHelper.getJournalEntries';
 import { subscribe, unsubscribe } from 'lightning/empApi';
 
@@ -37,7 +38,6 @@ export default class diaMessagingThreadViewer extends LightningElement {
     @api textTemplate; //Support for conditional text template as input
     //Constructor, called onload
     connectedCallback() {
-        console.log('RECORD ID: ' + this.recordId);
         this.getThreadByRecordId();
         this.handleSubscribe();
         this.scrolltobottom();
@@ -117,17 +117,14 @@ export default class diaMessagingThreadViewer extends LightningElement {
         }
     }
     //If empty, stop submitting.
-    handlesubmit(event) {
+    handleSubmit(event) {
         this.lockLangBtn();
         event.preventDefault();
         if (!this.quickTextCmp.isOpen()) {
             this.showspinner = true;
-            const textInput = event.detail.fields;
             // If messagefield is empty, stop the submit
-            textInput.CRM_Thread__c = this.threadid;
-            textInput.CRM_From_User__c = userId;
 
-            if (textInput.CRM_Message_Text__c == null || textInput.CRM_Message_Text__c === '') {
+            if (this.text == null || this.text === '') {
                 const event1 = new ShowToastEvent({
                     title: 'Message Body missing',
                     message: 'Make sure that you fill in the message text',
@@ -136,9 +133,26 @@ export default class diaMessagingThreadViewer extends LightningElement {
                 this.dispatchEvent(event1);
                 this.showspinner = false;
             } else {
-                this.template.querySelector('lightning-record-edit-form').submit(textInput);
+                this.createNewMessage(this.text);
             }
         }
+    }
+
+    createNewMessage(messageText) {
+        createMessage({ messageText: messageText, threadId: this.threadid })
+            .then(() => {
+                //Success, input field is wiped
+                this.handlesuccess();
+            })
+            .catch((error) => {
+                const errEvent = new ShowToastEvent({
+                    title: 'Feil ved sending av melding',
+                    message: 'Det oppsto en feil ved sending av meldingen din, vennligst prøv på nytt.',
+                    variant: 'error'
+                });
+                this.dispatchEvent(errEvent);
+                console.log('Message error: ' + JSON.stringify(error, null, 2));
+            });
     }
 
     //Enriching the toolbar event with reference to the thread id
@@ -185,13 +199,6 @@ export default class diaMessagingThreadViewer extends LightningElement {
 
     handlesuccess(event) {
         this.quickTextCmp.clear();
-        const inputFields = this.template.querySelectorAll('.msgText');
-
-        if (inputFields) {
-            inputFields.forEach((field) => {
-                field.reset();
-            });
-        }
         this.showspinner = false;
         this.refreshMessages();
     }
