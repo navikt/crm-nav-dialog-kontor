@@ -1,9 +1,12 @@
 public with sharing class DIA_MContentSharingEventHandler extends RecordSharingEvent {
     private Integer recordIndex=0;
     private List<SobjectWrapper> sobjectWrappers;
+    private static LoggerUtility logger = new LoggerUtility('Message Content Sharing');
+    List<Id> recordIds=new List<Id>();
 
     public override void execute(List<RecordSharingEvent__e> recordSharingEvents) {
-        List<Id> recordIds=new List<Id>();
+    try{
+       
 
         for(RecordSharingEvent__e sharingEvent:recordSharingEvents){
             if(sharingEvent.ObjectType__c!='Message_Content__c'){
@@ -35,6 +38,23 @@ public with sharing class DIA_MContentSharingEventHandler extends RecordSharingE
             messageContentShares.add(contentShare);
         }
         insert messageContentShares;
+    } catch (Exception ex) {
+        String recordIdsString = String.join( recordIds, ', ' );  
+        logger.error(
+
+            'Failed to share records: ' +
+            recordIdsString +
+            '\n' +
+            ex.getMessage() +
+            '\n' +
+            ex.getStackTraceString(),
+            null,
+            CRM_ApplicationDomain.Domain.NKS,
+            null
+        );
+    } finally {
+        logger.publish();
+    }
         
     }
 
