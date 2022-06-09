@@ -27,7 +27,10 @@ private class DIA_MContentSharingEventHandler_Test {
             new Conversation_Note__c(CRM_Account__c = accountId, CRM_Created_By_Ident__c='A12345', 	CRM_Conversation_Note__c='Test content', CRM_Theme__c=themePen.Id)
         );
         Test.stopTest();
-
+        System.assertEquals(1, [SELECT COUNT() FROM Message_Content__c]);
+        System.assertEquals(
+            1,
+            [SELECT COUNT() FROM Message_Content__Share]);
         System.assertEquals(
             1,
             [SELECT COUNT() FROM Message_Content__Share WHERE RowCause = 'Manual' AND UserOrGroupId = :themeGroupId],

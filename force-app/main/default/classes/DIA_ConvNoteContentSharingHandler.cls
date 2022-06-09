@@ -11,10 +11,10 @@ global class DIA_ConvNoteContentSharingHandler extends MyTriggers {
         }
 
         if (convNoteIdsWithChangedTheme.size() > 0) {
-            List<SharingEvent__e> events=new List<SharingEvent__e>();
+            List<RecordSharingEvent__e> events=new List<RecordSharingEvent__e>();
            //get all messages related to changed threads
            for(Conversation_Note__c note:[SELECT CRM_Message_Content__c FROM Conversation_Note__c WHERE Id in :convNoteIdsWithChangedTheme]){
-            SharingEvent__e event=new SharingEvent__e();
+            RecordSharingEvent__e event=new RecordSharingEvent__e();
             event.RecordId__c=note.CRM_Message_Content__c;
             event.ObjectType__c='Message_Content__c';
             events.add(event);

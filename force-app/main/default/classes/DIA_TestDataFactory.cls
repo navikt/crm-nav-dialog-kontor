@@ -267,6 +267,7 @@ public class DIA_TestDataFactory {
             return getFieldDefaults(false);
         }
         public Map<String, Object> getFieldDefaults(Boolean bulkify) {
+            //return new Map<String, Object>{ 'FirstName' => 'Test', 'LastName' => 'Testesen', 'TAG_Informed__c'=>true };
             return new Map<String, Object>{ 'FirstName' => 'Test', 'LastName' => 'Testesen' };
         }
         public Map<String, String> getDmlFields() {
