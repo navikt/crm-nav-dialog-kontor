@@ -11,10 +11,10 @@ global class DIA_ThreadContentSharingHandler extends MyTriggers {
         }
 
         if (threadIdsWithChangedTheme.size() > 0) {
-            List<SharingEvent__e> events=new List<SharingEvent__e>();
+            List<RecordSharingEvent__e> events=new List<RecordSharingEvent__e>();
            //get all messages related to changed threads
            for(Message__c message:[SELECT CRM_Message_Content__c FROM Message__c WHERE CRM_Thread__c in :threadIdsWithChangedTheme]){
-            SharingEvent__e event=new SharingEvent__e();
+            RecordSharingEvent__e event=new RecordSharingEvent__e();
             event.RecordId__c=message.CRM_Message_Content__c;
             event.ObjectType__c='Message_Content__c';
             events.add(event);

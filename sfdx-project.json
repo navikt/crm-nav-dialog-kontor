@@ -9,11 +9,11 @@
             "dependencies": [
                 {
                     "package": "crm-platform-base",
-                    "versionNumber": "0.157.0.LATEST"
+                    "versionNumber": "0.158.0.LATEST"
                 },
                 {
                     "package": "crm-platform-access-control",
-                    "versionNumber": "0.95.0.LATEST"
+                    "versionNumber": "0.97.0.LATEST"
                 },
                 {
                     "package": "crm-journal-utilities",
@@ -40,8 +40,12 @@
                     "versionNumber": "0.25.0.LATEST"
                 },
                 {
+                    "package": "crm-henvendelse-base",
+                    "versionNumber": "0.2.0.LATEST"
+                },
+                {
                     "package": "crm-henvendelse",
-                    "versionNumber": "0.62.0.LATEST"
+                    "versionNumber": "0.66.0.LATEST"
                 }
             ]
         }
@@ -52,6 +56,7 @@
     "packageAliases": {
         "crm-nav-dialog-kontor": "0Ho7U000000000pSAA",
         "crm-henvendelse": "0Ho2o000000fxXfCAI",
+        "crm-henvendelse-base": "0Ho7U000000000kSAA",
         "crm-platform-access-control": "0Ho2o0000008OR3CAM",
         "crm-journal-utilities": "0Ho2o000000fxXkCAI",
         "crm-shared-timeline": "0Ho2o000000fxXBCAY",
