@@ -6,7 +6,7 @@
         <name>Check_Access</name>
         <label>Check Access</label>
         <locationX>182</locationX>
-        <locationY>278</locationY>
+        <locationY>398</locationY>
         <defaultConnector>
             <targetReference>No_Access_Screen</targetReference>
         </defaultConnector>
@@ -15,14 +15,7 @@
             <name>Has_Access</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Conversation_Note.CRM_Message_Content__r.CRM_Message_Text__c</leftValueReference>
-                <operator>NotEqualTo</operator>
-                <rightValue>
-                    <stringValue/>
-                </rightValue>
-            </conditions>
-            <conditions>
-                <leftValueReference>Get_Conversation_Note.CRM_Message_Content__r.CRM_Message_Text__c</leftValueReference>
+                <leftValueReference>Get_Message_Content</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -62,7 +55,7 @@
         <locationY>158</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Check_Access</targetReference>
+            <targetReference>Get_Message_Content</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -76,12 +69,35 @@
         <object>Conversation_Note__c</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <description>Query the message content to see if running user has access</description>
+        <name>Get_Message_Content</name>
+        <label>Get Message Content</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Access</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Conversation_Note.CRM_Message_Content__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Message_Content__c</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <runInMode>SystemModeWithSharing</runInMode>
     <screens>
         <name>Journal_Screen</name>
         <label>Journal Screen</label>
         <locationX>50</locationX>
-        <locationY>398</locationY>
+        <locationY>518</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -122,7 +138,7 @@
         <name>No_Access_Screen</name>
         <label>No Access Screen</label>
         <locationX>314</locationX>
-        <locationY>398</locationY>
+        <locationY>518</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -146,7 +162,7 @@
         <name>Post_Journal_Entry</name>
         <label>Post Journal Entry</label>
         <locationX>50</locationX>
-        <locationY>518</locationY>
+        <locationY>638</locationY>
         <flowName>CRM_Journal_Conversation_Note</flowName>
         <inputAssignments>
             <name>Journal_Case_ID</name>
