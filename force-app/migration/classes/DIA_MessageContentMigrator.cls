@@ -3,18 +3,35 @@ public with sharing class DIA_MessageContentMigrator implements Database.Batchab
     private String parentObject;
     private String themeCode;
    
-    public DIA_MessageContentMigrator(String parentObject, String themeCode){
+    public DIA_MessageContentMigrator(String parentObject, String themeCode, String whereClause){
         this.parentObject=parentObject;
         this.themeCode=themeCode;
-
-        Id themeId=[SELECT Id FROM Common_Code__c WHERE CRM_Code__c=:themeCode AND CRM_Active__c=true AND 	CRM_Archive_Theme__c=true LIMIT 1].Id;
+        Id themeId=null;
+        if(themeCode!='Ingen'){
+            themeId=[SELECT Id FROM Common_Code__c WHERE CRM_Code__c=:themeCode AND CRM_Active__c=true AND 	CRM_Archive_Theme__c=true LIMIT 1].Id;    
+        }
+        
 
         if(this.parentObject=='Conversation_Note__c'){
-           query='SELECT Id, CRM_Message_Content__c, CRM_Conversation_Note__c, CRM_Account__r.CRM_Person__r.INT_IsNavEmployee__c, CRM_Account__r.CRM_Person__r.INT_Confidential__c FROM Conversation_Note__c WHERE CRM_Theme__c=\'' + themeId + '\'';
+           query='SELECT Id, CRM_Message_Content__c, CRM_Conversation_Note__c, CRM_Account__r.CRM_Person__r.INT_IsNavEmployee__c, CRM_Account__r.CRM_Person__r.INT_Confidential__c FROM Conversation_Note__c WHERE ';
+           if(themeId!=null){
+                query+='CRM_Theme__c=\'' + themeId + '\'';
+           }
+           else{
+                query+='CRM_Theme__c=null';
+           }
+            query+=whereClause;
         }
 
         if(this.parentObject=='Message__c'){
-            query='SELECT Id, CRM_Message_Content__c, CRM_Message_Text__c, CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_IsNavEmployee__c, CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_Confidential__c FROM Message__c WHERE CRM_Thread__r.CRM_Theme__c=\'' + themeId + '\'';
+            query='SELECT Id, CRM_Message_Content__c, CRM_Message_Text__c, CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_IsNavEmployee__c, CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_Confidential__c FROM Message__c WHERE ';
+            if(themeId!=null){
+                query+='CRM_Thread__r.CRM_Theme__c=\'' + themeId + '\'';
+           }
+           else{
+            query+='CRM_Thread__r.CRM_Theme__c=null';
+           }
+            query+=whereClause;
          }
 
     }
@@ -75,7 +92,10 @@ public with sharing class DIA_MessageContentMigrator implements Database.Batchab
             share.UserOrGroupId = groupIdByParentId.get(content.CRM_Parent_Record_Id__c);
             share.AccessLevel = 'Edit';
             share.RowCause = 'Manual';
-            shareRecords.add(share);
+            if(groupIdByParentId.get(content.CRM_Parent_Record_Id__c)!=null){
+                shareRecords.add(share);
+            }
+            
         }
 
         for(Conversation_Note__c note:notes){
@@ -121,7 +141,9 @@ public with sharing class DIA_MessageContentMigrator implements Database.Batchab
             share.UserOrGroupId = groupIdByParentId.get(content.CRM_Parent_Record_Id__c);
             share.AccessLevel = 'Edit';
             share.RowCause = 'Manual';
-            shareRecords.add(share);
+            if(groupIdByParentId.get(content.CRM_Parent_Record_Id__c)!=null){
+                shareRecords.add(share);
+            }
         }
 
         for(Message__c msg:messages){

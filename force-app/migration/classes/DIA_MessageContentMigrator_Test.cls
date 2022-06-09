@@ -33,7 +33,7 @@ private class DIA_MessageContentMigrator_Test {
 
         System.assertEquals(0, [SELECT COUNT() FROM Message_Content__c], 'Expect no content record to be created from test data creation');
         Test.startTest();
-        DIA_MessageContentMigrator batchClass = new DIA_MessageContentMigrator('Conversation_Note__c', 'PEN');
+        DIA_MessageContentMigrator batchClass = new DIA_MessageContentMigrator('Conversation_Note__c', 'PEN', '');
         Database.executeBatch(batchClass,1);
         Test.stopTest();
 
@@ -53,7 +53,7 @@ private class DIA_MessageContentMigrator_Test {
 
         System.assertEquals(0, [SELECT COUNT() FROM Message_Content__c], 'Expect no content record to be created from test data creation');
         Test.startTest();
-        DIA_MessageContentMigrator batchClass = new DIA_MessageContentMigrator('Message__c', 'PEN');
+        DIA_MessageContentMigrator batchClass = new DIA_MessageContentMigrator('Message__c', 'PEN','');
         Database.executeBatch(batchClass,1);
         Test.stopTest();
 

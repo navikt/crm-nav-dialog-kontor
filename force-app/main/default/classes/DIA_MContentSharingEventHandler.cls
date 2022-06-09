@@ -1,5 +1,5 @@
 public with sharing class DIA_MContentSharingEventHandler extends RecordSharingEvent {
-    private Integer recordIndex=1;
+    private Integer recordIndex=0;
     private List<SobjectWrapper> sobjectWrappers;
 
     public override void execute(List<RecordSharingEvent__e> recordSharingEvents) {
@@ -19,7 +19,6 @@ public with sharing class DIA_MContentSharingEventHandler extends RecordSharingE
             //find conv notes if not all record ids was found in messages
             findConversationNotes(recordIds);
         }
-      
        
         if(sobjectWrappers.size()==0){
             return;
