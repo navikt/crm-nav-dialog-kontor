@@ -53,6 +53,11 @@
     <nameFieldLabel><!-- Navn --></nameFieldLabel>
     <quickActions>
         <aspect>Master</aspect>
+        <label>Ferdigstill</label>
+        <name>DIA_Complete_Task</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
         <label>Journalfør dialog</label>
         <name>DIA_Journal_Dialogue</name>
     </quickActions>
@@ -66,4 +71,13 @@
         <label>Skriv til bruker</label>
         <name>DIA_New_Thread</name>
     </quickActions>
+    <recordTypes>
+        <description><!-- Record type for NAV tasks related to dialogues --></description>
+        <label><!-- Dialogue Task --></label>
+        <name>NAV_Dialogue_Task</name>
+    </recordTypes>
+    <validationRules>
+        <errorMessage><!-- Du må bekrefte at feltet &quot;Kommentarer&quot; ikke inneholder personsensitive opplysninger --></errorMessage>
+        <name>No_person_information_added</name>
+    </validationRules>
 </CustomObjectTranslation>
