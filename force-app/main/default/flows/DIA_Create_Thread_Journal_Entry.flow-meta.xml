@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>52.0</apiVersion>
-    <assignments>
-        <name>Set_Number_of_Messages</name>
-        <label>Set Number of Messages</label>
+    <actionCalls>
+        <name>Check_Dialogue_Access</name>
+        <label>Check Dialogue Access</label>
         <locationX>182</locationX>
-        <locationY>398</locationY>
-        <assignmentItems>
-            <assignToReference>NUMBER_OF_MESSAGES</assignToReference>
-            <operator>AssignCount</operator>
-            <value>
-                <elementReference>Get_Messages</elementReference>
-            </value>
-        </assignmentItems>
+        <locationY>278</locationY>
+        <actionName>DIA_DialogueAccessValidator</actionName>
+        <actionType>apex</actionType>
         <connector>
             <targetReference>Check_Access</targetReference>
         </connector>
-    </assignments>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>apiRefs</name>
+            <value>
+                <elementReference>Get_Thread.CRM_API_Reference__c</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <apiVersion>52.0</apiVersion>
     <decisions>
         <description>Verify that the running user har access to the messages in the thread before journaling</description>
         <name>Check_Access</name>
         <label>Check Access</label>
         <locationX>182</locationX>
-        <locationY>518</locationY>
+        <locationY>398</locationY>
         <defaultConnector>
             <targetReference>No_Access_Screen</targetReference>
         </defaultConnector>
@@ -31,10 +34,10 @@
             <name>Has_Access</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>NUMBER_OF_MESSAGES</leftValueReference>
+                <leftValueReference>Check_Dialogue_Access</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>Get_Thread.CRM_Number_of_Messages__c</elementReference>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -65,43 +68,13 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
-        <name>Get_Messages</name>
-        <label>Get Messages</label>
-        <locationX>182</locationX>
-        <locationY>278</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Set_Number_of_Messages</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>CRM_Thread__c</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Get_Thread.Id</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>CRM_Message_Content__c</field>
-            <operator>IsNull</operator>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>Message__c</object>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>CRM_Message_Content__c</queriedFields>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>Get_Thread</name>
         <label>Get Thread</label>
         <locationX>182</locationX>
         <locationY>158</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Messages</targetReference>
+            <targetReference>Check_Dialogue_Access</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -120,7 +93,7 @@
         <name>No_Access_Screen</name>
         <label>No Access Screen</label>
         <locationX>314</locationX>
-        <locationY>638</locationY>
+        <locationY>518</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -136,7 +109,7 @@
         <name>Thread_Journal_Screen</name>
         <label>Thread Journal Screen</label>
         <locationX>50</locationX>
-        <locationY>638</locationY>
+        <locationY>518</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -179,7 +152,7 @@
         <name>Create_Journal_Entry</name>
         <label>Create Journal Entry</label>
         <locationX>50</locationX>
-        <locationY>758</locationY>
+        <locationY>638</locationY>
         <connector>
             <targetReference>Create_Thread_Journal_Event</targetReference>
         </connector>
@@ -225,7 +198,7 @@
         <name>Create_Thread_Journal_Event</name>
         <label>Create Thread Journal Event</label>
         <locationX>50</locationX>
-        <locationY>878</locationY>
+        <locationY>758</locationY>
         <flowName>CRM_Create_Thread_Event</flowName>
         <inputAssignments>
             <name>Event_Message</name>
@@ -246,17 +219,6 @@
             </value>
         </inputAssignments>
     </subflows>
-    <variables>
-        <name>NUMBER_OF_MESSAGES</name>
-        <dataType>Number</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <scale>0</scale>
-        <value>
-            <numberValue>0.0</numberValue>
-        </value>
-    </variables>
     <variables>
         <name>recordId</name>
         <dataType>String</dataType>
