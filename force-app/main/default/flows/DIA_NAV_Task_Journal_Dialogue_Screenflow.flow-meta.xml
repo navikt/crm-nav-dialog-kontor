@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
+        <description>Verify if the user has access to the written messages in the dialogue.</description>
+        <name>Check_Dialogue_Access</name>
+        <label>Check Dialogue Access</label>
+        <locationX>578</locationX>
+        <locationY>398</locationY>
+        <actionName>DIA_DialogueAccessValidator</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Verify_Access</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>apiRefs</name>
+            <value>
+                <elementReference>Get_NAV_Task_Data.NKS_Henvendelse_BehandlingsId__c</elementReference>
+            </value>
+        </inputParameters>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
         <description>Call apex to check the sobject type of the API reference.</description>
         <name>Get_Henvendelse_Object_Type</name>
         <label>Get Henvendelse Object Type</label>
         <locationX>314</locationX>
-        <locationY>638</locationY>
+        <locationY>878</locationY>
         <actionName>DIA_FlowUtils</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -24,7 +44,7 @@
         <name>Journal_Conversation_Note</name>
         <label>Journal Conversation Note</label>
         <locationX>314</locationX>
-        <locationY>998</locationY>
+        <locationY>1238</locationY>
         <actionName>CRM_ConvNoteJournalHelper</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -72,7 +92,7 @@
         <name>Journal_Toast</name>
         <label>Journal Toast</label>
         <locationX>314</locationX>
-        <locationY>1214</locationY>
+        <locationY>1454</locationY>
         <actionName>c:fcFlowToaster</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -106,7 +126,7 @@
     <decisions>
         <name>Check_API_Reference</name>
         <label>Check API Reference</label>
-        <locationX>578</locationX>
+        <locationX>842</locationX>
         <locationY>278</locationY>
         <defaultConnector>
             <targetReference>No_Reference_Error_Screen</targetReference>
@@ -123,7 +143,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Get_Person</targetReference>
+                <targetReference>Check_Dialogue_Access</targetReference>
             </connector>
             <label>Has Reference</label>
         </rules>
@@ -132,7 +152,7 @@
         <name>Check_Object_Type</name>
         <label>Check Object Type</label>
         <locationX>314</locationX>
-        <locationY>758</locationY>
+        <locationY>998</locationY>
         <defaultConnector>
             <isGoTo>true</isGoTo>
             <targetReference>No_Reference_Error_Screen</targetReference>
@@ -169,6 +189,31 @@
             <label>Is Conversation Note</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Verify_Access</name>
+        <label>Verify Access</label>
+        <locationX>578</locationX>
+        <locationY>518</locationY>
+        <defaultConnector>
+            <targetReference>No_Access_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No Access</defaultConnectorLabel>
+        <rules>
+            <name>Has_Access</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Check_Dialogue_Access</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Person</targetReference>
+            </connector>
+            <label>Has Access</label>
+        </rules>
+    </decisions>
     <interviewLabel>NAV Task Journal Dialogue - Screenflow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>NAV Task Journal Dialogue - Screenflow</label>
     <processMetadataValues>
@@ -195,7 +240,7 @@
         <name>Get_Conversation_Note</name>
         <label>Get Conversation Note</label>
         <locationX>314</locationX>
-        <locationY>878</locationY>
+        <locationY>1118</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Journal_Conversation_Note</targetReference>
@@ -216,7 +261,7 @@
     <recordLookups>
         <name>Get_NAV_Task_Data</name>
         <label>Get NAV Task Data</label>
-        <locationX>578</locationX>
+        <locationX>842</locationX>
         <locationY>158</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -242,7 +287,7 @@
         <name>Get_Person</name>
         <label>Get Person</label>
         <locationX>314</locationX>
-        <locationY>398</locationY>
+        <locationY>638</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Journal_Screen_0</targetReference>
@@ -267,7 +312,7 @@
         <name>Get_Thread_Info</name>
         <label>Get Thread Info</label>
         <locationX>50</locationX>
-        <locationY>878</locationY>
+        <locationY>1118</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Journal_Thread</targetReference>
@@ -290,7 +335,7 @@
         <name>Journal_Screen_0</name>
         <label>Journal Screen</label>
         <locationX>314</locationX>
-        <locationY>518</locationY>
+        <locationY>758</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -327,9 +372,25 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>No_Access_Screen</name>
+        <label>No Access Screen</label>
+        <locationX>842</locationX>
+        <locationY>638</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>No_Access_Message</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; color: rgb(68, 68, 68);&quot;&gt;Du har ikke tilgang til å journalføre denne dialogen.&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>No_Reference_Error_Screen</name>
         <label>No Reference Error Screen</label>
-        <locationX>842</locationX>
+        <locationX>1106</locationX>
         <locationY>398</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -343,7 +404,7 @@
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>452</locationX>
+        <locationX>716</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_NAV_Task_Data</targetReference>
@@ -354,7 +415,7 @@
         <name>Journal_Thread</name>
         <label>Journal Thread</label>
         <locationX>50</locationX>
-        <locationY>998</locationY>
+        <locationY>1238</locationY>
         <connector>
             <targetReference>Journal_Toast</targetReference>
         </connector>
