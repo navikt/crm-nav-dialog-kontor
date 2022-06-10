@@ -8,6 +8,12 @@ public with sharing class DIA_DialogueAccessValidator {
         return new List<Boolean>{ checkDialogueAccess(getDialogue(apiRefs[0])) };
     }
 
+    /**
+     * SOSL query for the dialogue by API Reference in the Thread__c and Conversation_Note__c table
+     * @author Stian Ruud Schikora | 06-10-2022
+     * @param apiReference
+     * @return SObject
+     **/
     private static SObject getDialogue(String apiReference) {
         List<List<SObject>> dialogs = [
             FIND :apiReference
@@ -20,6 +26,12 @@ public with sharing class DIA_DialogueAccessValidator {
         return dialogs[0].size() > 0 ? dialogs[0][0] : dialogs[1][0];
     }
 
+    /**
+     * Check if user can access the dialogue
+     * @author Stian Ruud Schikora | 06-10-2022
+     * @param dialogue
+     * @return Boolean
+     **/
     private static Boolean checkDialogueAccess(SObject dialogue) {
         Id dialogueId = (Id) dialogue.get('Id');
 
@@ -28,6 +40,12 @@ public with sharing class DIA_DialogueAccessValidator {
             : hasConvNoteAccess((Conversation_Note__c) dialogue);
     }
 
+    /**
+     * Check if the user has access to the related Message_Content__c record
+     * @author Stian Ruud Schikora | 06-10-2022
+     * @param convNote
+     * @return Boolean
+     **/
     private static Boolean hasConvNoteAccess(Conversation_Note__c convNote) {
         Boolean hasAccess = false;
 
@@ -41,6 +59,12 @@ public with sharing class DIA_DialogueAccessValidator {
         return hasAccess;
     }
 
+    /**
+     * Verify that running user has access to ALL Message_Content__c record on the thread
+     * @author Stian Ruud Schikora | 06-10-2022
+     * @param thread
+     * @return Boolean
+     **/
     private static Boolean hasThreadAccess(Thread__c thread) {
         Set<Id> msgContIds = new Set<Id>();
 
