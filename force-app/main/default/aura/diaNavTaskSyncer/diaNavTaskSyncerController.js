@@ -6,6 +6,7 @@
             var state = response.getState();
             if (state === 'SUCCESS') {
                 //Successful sync
+                $A.get('e.force:refreshView').fire();
             } else {
                 console.log('Error performing oppgave sync: ' + JSON.stringify(response.getError()));
             }
