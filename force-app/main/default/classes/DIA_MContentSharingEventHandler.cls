@@ -1,5 +1,6 @@
 public with sharing class DIA_MContentSharingEventHandler extends RecordSharingEvent {
     private Integer recordIndex=0;
+    Map<Integer,Id> recordIdByIndex=new Map<Integer,Id>();
     private List<SobjectWrapper> sobjectWrappers;
     private static LoggerUtility logger = new LoggerUtility('Message Content Sharing');
     List<Id> recordIds=new List<Id>();
@@ -31,7 +32,7 @@ public with sharing class DIA_MContentSharingEventHandler extends RecordSharingE
         List<Message_Content__Share> messageContentShares=new List<Message_Content__Share>();
         for(ShareWrapper share:shareWrappers){
             Message_Content__Share contentShare = new Message_Content__Share();
-            contentShare.ParentId = recordIds[share.recordIndex];
+            contentShare.ParentId = recordIdByIndex.get(share.recordIndex);
             contentShare.UserOrGroupId = share.publicGroupId;
             contentShare.AccessLevel = 'Edit';
             contentShare.RowCause = 'Manual';
@@ -59,7 +60,7 @@ public with sharing class DIA_MContentSharingEventHandler extends RecordSharingE
     }
 
     private void findMessages(List<Id> contentMessageRecordIds){
-        for(Message__c message:[SELECT CRM_Thread__r.CRM_Theme__r.CRM_Code__c, CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_Confidential__c, CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_IsNavEmployee__c, CRM_Thread__r.CRM_Office_Restriction__c FROM Message__c WHERE CRM_Message_Content__c in:contentMessageRecordIds]){
+        for(Message__c message:[SELECT CRM_Thread__r.CRM_Theme__r.CRM_Code__c, CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_Confidential__c, CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_IsNavEmployee__c, CRM_Thread__r.CRM_Office_Restriction__c, CRM_Message_Content__c FROM Message__c WHERE CRM_Message_Content__c in:contentMessageRecordIds]){
             SobjectWrapper wrapper = new SobjectWrapper();
             wrapper.recordIndex = recordIndex;
             wrapper.confidential = message.CRM_Thread__r.CRM_Account__r.CRM_Person__r.INT_Confidential__c;
@@ -67,12 +68,13 @@ public with sharing class DIA_MContentSharingEventHandler extends RecordSharingE
             wrapper.officeRestriction = message.CRM_Thread__r.CRM_Office_Restriction__c;
             wrapper.theme = message.CRM_Thread__r.CRM_Theme__r.CRM_Code__c;
             sobjectWrappers.add(wrapper);
+            recordIdByIndex.put(recordIndex,message.CRM_Message_Content__c);
             recordIndex++;
         }
     }
 
     private void findConversationNotes(List<Id> contentMessageRecordIds){
-        for(Conversation_Note__c note:[SELECT CRM_Theme__r.CRM_Code__c, CRM_Account__r.CRM_Person__r.INT_Confidential__c, CRM_Account__r.CRM_Person__r.INT_IsNavEmployee__c, CRM_Office_Restriction__c FROM Conversation_Note__c WHERE CRM_Message_Content__c in:contentMessageRecordIds]){
+        for(Conversation_Note__c note:[SELECT CRM_Theme__r.CRM_Code__c, CRM_Account__r.CRM_Person__r.INT_Confidential__c, CRM_Account__r.CRM_Person__r.INT_IsNavEmployee__c, CRM_Office_Restriction__c, CRM_Message_Content__c FROM Conversation_Note__c WHERE CRM_Message_Content__c in:contentMessageRecordIds]){
             SobjectWrapper wrapper = new SobjectWrapper();
             wrapper.recordIndex = recordIndex;
             wrapper.confidential = note.CRM_Account__r.CRM_Person__r.INT_Confidential__c;
@@ -80,6 +82,7 @@ public with sharing class DIA_MContentSharingEventHandler extends RecordSharingE
             wrapper.officeRestriction = note.CRM_Office_Restriction__c;
             wrapper.theme = note.CRM_Theme__r.CRM_Code__c;
             sobjectWrappers.add(wrapper);
+            recordIdByIndex.put(recordIndex,note.CRM_Message_Content__c);
             recordIndex++;
         }
     }
