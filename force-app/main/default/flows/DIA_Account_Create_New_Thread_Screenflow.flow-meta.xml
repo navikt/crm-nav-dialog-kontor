@@ -342,7 +342,7 @@
                     <choiceReferences>RESPONSE_TO_UNIT</choiceReferences>
                     <choiceReferences>RESPONSE_TO_ME</choiceReferences>
                     <dataType>String</dataType>
-                    <defaultSelectedChoiceReference>RESPONSE_TO_UNIT</defaultSelectedChoiceReference>
+                    <defaultSelectedChoiceReference>RESPONSE_TO_ME</defaultSelectedChoiceReference>
                     <fieldText>Svar til:</fieldText>
                     <fieldType>RadioButtons</fieldType>
                     <isRequired>true</isRequired>
