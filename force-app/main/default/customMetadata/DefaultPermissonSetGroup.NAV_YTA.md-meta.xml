@@ -6,4 +6,8 @@
         <field>PermissonSetGroup__c</field>
         <value xsi:type="xsd:string">NAV - YTA</value>
     </values>
+    <values>
+        <field>Profile__c</field>
+        <value xsi:type="xsd:string">NAV YTA</value>
+    </values>
 </CustomMetadata>
