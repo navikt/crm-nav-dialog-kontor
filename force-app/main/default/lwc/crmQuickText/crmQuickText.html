@@ -47,7 +47,7 @@
                     onclick={innerClickHandler}
                 >
                     <div class="slds-var-p-bottom_x-small" if:true={qmap}>
-                        <a onclick={toggleAutocomplete}>Vis autofullfør</a>
+                        <a onclick={toggleAutocomplete}>{showAutocompleteLabel}</a>
                         <div class="slds-box slds-var-p-top_small" if:true={showAutocomplete}>
                             <lightning-layout multiple-rows="true">
                                 <template for:each={qmap} for:item="autoText">

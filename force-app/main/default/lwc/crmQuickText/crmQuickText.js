@@ -66,6 +66,10 @@ export default class crmQuickText extends LightningElement {
         return !this.isOpen;
     }
 
+    get showAutocompleteLabel() {
+        return this.showAutocomplete === true ? 'Skjul autofullfør' : 'Vis autofullfør';
+    }
+
     showModal() {
         this.template.querySelector('[data-id="modal"]').className = 'modalShow';
         this.template.querySelector('lightning-input').focus();

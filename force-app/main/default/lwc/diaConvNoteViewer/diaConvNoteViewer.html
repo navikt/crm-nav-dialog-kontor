@@ -2,12 +2,12 @@
     <div class="slds-card slds-is-relative">
         <lightning-spinner if:true={isLoading} size="medium" variant="brand" alternative-text="Laster samtalereferat">
         </lightning-spinner>
-        <div if:false={isLoading} class="conv-note-details slds-var-p-bottom_small">
+        <div if:false={isLoading} class="conv-note-details slds-p-bottom_small">
             <lightning-record-view-form object-api-name="Conversation_Note__c" record-id={recordId}>
-                <h2 class="slds-text-heading_large slds-text-title_bold slds-border_bottom slds-var-p-around_small">
+                <h2 class="slds-text-heading_large slds-text-title_bold slds-border_bottom slds-p-around_small">
                     Samtalereferat
                 </h2>
-                <lightning-layout class="slds-var-p-top_small" multiple-rows="true">
+                <lightning-layout class="slds-p-top_small" multiple-rows="true">
                     <lightning-layout-item size="12" padding="horizontal-small">
                         <strong>{conversationNote.DIA_Theme_Name__c}</strong>
                     </lightning-layout-item>
@@ -27,7 +27,7 @@
                     </lightning-layout-item>
 
                     <lightning-layout-item
-                        class="slds-var-p-bottom_small slds-var-p-top_small"
+                        class="slds-p-bottom_small slds-p-top_small"
                         size="12"
                         padding="horizontal-small"
                     >
@@ -53,10 +53,10 @@
                         </strong>
                     </lightning-layout-item>
 
-                    <lightning-layout-item class="slds-var-top_small" size="12" padding="horizontal-small">
+                    <lightning-layout-item class="slds-top_small" size="12" padding="horizontal-small">
                         <lightning-layout vertical-align="center">
                             <lightning-layout-item> <strong>Journalføringsstatus: </strong></lightning-layout-item>
-                            <lightning-layout-item class="slds-var-p-left_small">
+                            <lightning-layout-item class="slds-p-left_small">
                                 <lightning-output-field
                                     variant="label-hidden"
                                     field-name="CRM_Journal_Status_Formula__c"
