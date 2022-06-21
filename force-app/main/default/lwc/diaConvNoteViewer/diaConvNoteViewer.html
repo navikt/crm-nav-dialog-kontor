@@ -37,23 +37,25 @@
                     </lightning-layout-item>
 
                     <lightning-layout-item size="12" padding="horizontal-small">
-                        <div if:true={conversationNote.CRM_Read_Date__c}>
-                            Lest: &nbsp;
-                            <lightning-formatted-date-time
-                                month="long"
-                                day="2-digit"
-                                hour="2-digit"
-                                minute="2-digit"
-                                year="numeric"
-                                value={conversationNote.CRM_Read_Date__c}
-                            ></lightning-formatted-date-time>
-                        </div>
-                        <div if:false={conversationNote.CRM_Read_Date__c}>Ikke lest</div>
+                        <strong>
+                            <div if:true={conversationNote.CRM_Read_Date__c}>
+                                Lest: &nbsp;
+                                <lightning-formatted-date-time
+                                    month="long"
+                                    day="2-digit"
+                                    hour="2-digit"
+                                    minute="2-digit"
+                                    year="numeric"
+                                    value={conversationNote.CRM_Read_Date__c}
+                                ></lightning-formatted-date-time>
+                            </div>
+                            <div if:false={conversationNote.CRM_Read_Date__c}>Ikke lest</div>
+                        </strong>
                     </lightning-layout-item>
 
                     <lightning-layout-item class="slds-var-top_small" size="12" padding="horizontal-small">
                         <lightning-layout>
-                            <lightning-layout-item> Journalføringsstatus: </lightning-layout-item>
+                            <lightning-layout-item> <strong>Journalføringsstatus: </strong></lightning-layout-item>
                             <lightning-layout-item class="slds-var-p-left_small">
                                 <lightning-output-field
                                     variant="label-hidden"
