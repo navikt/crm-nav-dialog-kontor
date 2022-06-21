@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>NAV ATA</label>
+    <label>NAV ATA Arbeidsgiver</label>
     <protected>false</protected>
     <values>
         <field>PermissonSetGroup__c</field>
-        <value xsi:type="xsd:string">NAV - ATA</value>
+        <value xsi:type="xsd:string">Arbeidsgiver - Base (Group)</value>
     </values>
     <values>
         <field>Profile__c</field>
