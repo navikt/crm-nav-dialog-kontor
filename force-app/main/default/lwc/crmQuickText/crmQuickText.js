@@ -16,6 +16,7 @@ export default class crmQuickText extends LightningElement {
     qmap;
     initialRender = true;
     loadingData = false;
+    showAutocomplete = false;
 
     @track data = [];
 
@@ -170,6 +171,11 @@ export default class crmQuickText extends LightningElement {
                     content: { message: key.Message, isCaseSensitive: key.Case_sensitive__c }
                 };
             });
+            this.qmap.push({
+                abbreviation: 'TEST 1',
+                content: { message: 'MELDING 1', isCaseSensitive: true }
+            });
+            console.log('QMAP: ' + JSON.stringify(this.qmap, null, 2));
         }
     }
 
@@ -305,6 +311,10 @@ export default class crmQuickText extends LightningElement {
                 editor.setRangeText(quickText + lastChar, startindex, carretPositionEnd, 'end');
             }
         }
+    }
+
+    toggleAutocomplete() {
+        this.showAutocomplete = !this.showAutocomplete;
     }
 
     toPlainText(value) {

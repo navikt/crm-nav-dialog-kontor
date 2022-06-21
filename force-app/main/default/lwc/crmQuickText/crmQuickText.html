@@ -46,6 +46,18 @@
                     tabindex="-1"
                     onclick={innerClickHandler}
                 >
+                    <div class="slds-var-p-bottom_x-small" if:true={qmap}>
+                        <a onclick={toggleAutocomplete}>Vis autofullfør</a>
+                        <div class="slds-box slds-var-p-top_small" if:true={showAutocomplete}>
+                            <lightning-layout multiple-rows="true">
+                                <template for:each={qmap} for:item="autoText">
+                                    <lightning-layout-item key={autoText} size="6">
+                                        <strong>{autoText.abbreviation}</strong> &nbsp; {autoText.content.message}
+                                    </lightning-layout-item>
+                                </template>
+                            </lightning-layout>
+                        </div>
+                    </div>
                     <slot name="modalContent"></slot>
                     <lightning-spinner
                         size="small"
