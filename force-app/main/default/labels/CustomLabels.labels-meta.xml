@@ -8,4 +8,12 @@
         <shortDescription>Message No Access</shortDescription>
         <value>Du har ikke tilgang til å se innholdet i denne meldingen.</value>
     </labels>
+    <labels>
+        <fullName>CRM_Conversation_Note_Blank_Error</fullName>
+        <categories>UI, NAV Case, LogCall</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Conversation Note Blank Error</shortDescription>
+        <value>Samtalereferatet kan ikke være tomt!</value>
+    </labels>
 </CustomLabels>

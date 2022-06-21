@@ -171,7 +171,7 @@
         <inputAssignments>
             <field>CRM_Message_Text__c</field>
             <value>
-                <elementReference>MESSAGE_TEXT</elementReference>
+                <elementReference>MESSAGE_INPUT.inputText</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -379,10 +379,18 @@
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>MESSAGE_TEXT</name>
-            <fieldText>Meldingstekst</fieldText>
-            <fieldType>LargeTextArea</fieldType>
+            <name>MESSAGE_INPUT</name>
+            <extensionName>c:crmQuickText</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>defaultRows</name>
+                <value>
+                    <numberValue>12.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <nextOrFinishButtonLabel>Del med bruker</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
