@@ -1,0 +1,8 @@
+[
+    {
+        "sobject": "Person__c",
+        "saveRefs": false,
+        "resolveRefs": false,
+        "files": ["persons.json"]
+    }
+]
