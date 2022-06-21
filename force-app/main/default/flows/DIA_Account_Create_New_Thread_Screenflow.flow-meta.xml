@@ -388,6 +388,18 @@
                     <numberValue>12.0</numberValue>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>NO_INPUT_VALIDATION_ERROR</name>
+                <value>
+                    <elementReference>EMPY_MESSAGE_ERROR</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -450,6 +462,16 @@
             </value>
         </inputAssignments>
     </subflows>
+    <variables>
+        <name>EMPY_MESSAGE_ERROR</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Label.DIA_Empty_Message_Error</elementReference>
+        </value>
+    </variables>
     <variables>
         <description>Journal entry record to be passed for journal post</description>
         <name>JOURNAL_ENTRY</name>

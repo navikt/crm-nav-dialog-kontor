@@ -12,6 +12,7 @@
             <property name="inputText" type="String" label="Text input value" role="OutputOnly" />
             <property name="inputTextRich" type="String" label="Text Input" />
             <property name="required" type="Boolean" label="Required" default="false" role="inputOnly" />
+            <property name="NO_INPUT_VALIDATION_ERROR" type="String" label="Blank input validation error" description="If field is required, determine the validation error message to be displayed" default="Input cannot be blank" role="inputOnly" />
             <property name="labelText" type="String" label="Input Label" default="Meldingstekst" role="inputOnly" />
             <property name="defaultRows" type="Integer" label="Number of rows" description="Determines the default height of the input field" default="15" role="inputOnly" />
         </targetConfig>

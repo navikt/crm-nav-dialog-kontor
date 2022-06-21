@@ -1,7 +1,6 @@
 import { LightningElement, track, api, wire } from 'lwc';
 import searchRecords from '@salesforce/apex/CRM_QuickTextSearchController.searchRecords';
 import getQuicktexts from '@salesforce/apex/CRM_QuickTextSearchController.getQuicktexts';
-import BLANK_ERROR from '@salesforce/label/c.CRM_Conversation_Note_Blank_Error';
 
 const ESC_KEY_CODE = 27;
 const ESC_KEY_STRING = 'Escape';
@@ -11,7 +10,6 @@ const LIGHTNING_INPUT_FIELD = 'LIGHTNING-INPUT-FIELD';
 
 const QUICK_TEXT_TRIGGER_KEYS = ['Enter', ' ', ','];
 export default class crmQuickText extends LightningElement {
-    labels = { BLANK_ERROR };
     _inputText;
     qmap;
     initialRender = true;
@@ -23,6 +21,7 @@ export default class crmQuickText extends LightningElement {
     @api labelText = 'Meldingstekst';
     @api defaultRows = 15;
     @api required = false;
+    @api NO_INPUT_VALIDATION_ERROR;
 
     get textArea() {
         return this.template.querySelector('.inputTextTextArea');
@@ -175,11 +174,6 @@ export default class crmQuickText extends LightningElement {
                     content: { message: key.Message, isCaseSensitive: key.Case_sensitive__c }
                 };
             });
-            this.qmap.push({
-                abbreviation: 'TEST 1',
-                content: { message: 'MELDING 1', isCaseSensitive: true }
-            });
-            console.log('QMAP: ' + JSON.stringify(this.qmap, null, 2));
         }
     }
 
@@ -334,7 +328,7 @@ export default class crmQuickText extends LightningElement {
         if (this.required === true) {
             return this.inputText && this.inputText.length > 0
                 ? { isValid: true }
-                : { isValid: false, errorMessage: this.labels.BLANK_ERROR }; //CUSTOM LABEL HERE
+                : { isValid: false, errorMessage: this.NO_INPUT_VALIDATION_ERROR };
         } else {
             return { isValid: true };
         }

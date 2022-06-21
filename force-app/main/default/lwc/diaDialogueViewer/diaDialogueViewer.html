@@ -1,4 +1,7 @@
 <template>
-    <c-dia-messaging-thread-viewer if:true={threadId} record-id={threadId}></c-dia-messaging-thread-viewer>
-    <c-dia-conv-note-viewer if:true={convNoteId} record-id={convNoteId}></c-dia-conv-note-viewer>
+    <div class="slds-is-relative">
+        <lightning-spinner if:true={isLoading} size="medium" variant="brand"></lightning-spinner>
+        <c-dia-messaging-thread-viewer if:true={threadId} record-id={threadId}></c-dia-messaging-thread-viewer>
+        <c-dia-conv-note-viewer if:true={convNoteId} record-id={convNoteId}></c-dia-conv-note-viewer>
+    </div>
 </template>

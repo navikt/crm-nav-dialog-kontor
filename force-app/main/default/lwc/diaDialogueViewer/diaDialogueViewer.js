@@ -14,6 +14,11 @@ export default class DiaDialogueViewer extends LightningElement {
     convNoteId;
     navTaskId;
     apiReference;
+    error = false;
+
+    get isLoading() {
+        return !this.threadId && !this.convNoteId && !this.navTaskId && this.error === false;
+    }
 
     connectedCallback() {
         this.getRelatedDialogue();
@@ -37,6 +42,7 @@ export default class DiaDialogueViewer extends LightningElement {
         if (error) {
             //Something went wrong
             console.log('ERROR! ' + JSON.stringify(error, null, 2));
+            this.error = true;
         } else if (data) {
             const dialog = JSON.parse(data);
             if (dialog.attributes.type === THREAD_TYPE) this.threadId = dialog.Id;
@@ -48,6 +54,7 @@ export default class DiaDialogueViewer extends LightningElement {
     wiredNavTask({ error, data }) {
         if (error) {
             //Something went wrong
+            this.error = true;
         } else if (data) {
             this.apiReference = getFieldValue(data, NAV_TASK_API_REF_FIELD);
         }

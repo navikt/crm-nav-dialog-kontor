@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
+        <fullName>DIA_Empty_Message_Error</fullName>
+        <categories>Dialog, Message, Thread</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Empty Message Error</shortDescription>
+        <value>Meldingsfeltet kan ikke være tomt</value>
+    </labels>
+    <labels>
         <fullName>DIA_Message_No_Access</fullName>
         <categories>Dialog, Message, Thread</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Message No Access</shortDescription>
         <value>Du har ikke tilgang til å se innholdet i denne meldingen.</value>
-    </labels>
-    <labels>
-        <fullName>CRM_Conversation_Note_Blank_Error</fullName>
-        <categories>UI, NAV Case, LogCall</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Conversation Note Blank Error</shortDescription>
-        <value>Samtalereferatet kan ikke være tomt!</value>
     </labels>
 </CustomLabels>
