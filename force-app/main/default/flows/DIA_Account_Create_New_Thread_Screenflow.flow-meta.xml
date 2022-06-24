@@ -171,7 +171,7 @@
         <inputAssignments>
             <field>CRM_Message_Text__c</field>
             <value>
-                <elementReference>MESSAGE_TEXT</elementReference>
+                <elementReference>MESSAGE_INPUT.inputText</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -379,10 +379,30 @@
             <isRequired>false</isRequired>
         </fields>
         <fields>
-            <name>MESSAGE_TEXT</name>
-            <fieldText>Meldingstekst</fieldText>
-            <fieldType>LargeTextArea</fieldType>
+            <name>MESSAGE_INPUT</name>
+            <extensionName>c:crmQuickText</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>defaultRows</name>
+                <value>
+                    <numberValue>12.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>NO_INPUT_VALIDATION_ERROR</name>
+                <value>
+                    <elementReference>EMPY_MESSAGE_ERROR</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>required</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <nextOrFinishButtonLabel>Del med bruker</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -442,6 +462,16 @@
             </value>
         </inputAssignments>
     </subflows>
+    <variables>
+        <name>EMPY_MESSAGE_ERROR</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>$Label.DIA_Empty_Message_Error</elementReference>
+        </value>
+    </variables>
     <variables>
         <description>Journal entry record to be passed for journal post</description>
         <name>JOURNAL_ENTRY</name>

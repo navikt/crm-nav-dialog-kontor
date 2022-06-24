@@ -4,6 +4,10 @@
         <apexClass>ArchiveHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+     <classAccesses>
+        <apexClass>CRM_QuickTextSearchController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <classAccesses>
         <apexClass>CRM_HenvRedirectController</apexClass>
         <enabled>true</enabled>
