@@ -267,6 +267,12 @@
                     <elementReference>CONV_NOTE_EMPTY_ERROR</elementReference>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>inputTextRich</name>
+                <value>
+                    <stringValue></stringValue>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
