@@ -4,7 +4,7 @@
         <name>Success_Toast</name>
         <label>Success Toast</label>
         <locationX>176</locationX>
-        <locationY>878</locationY>
+        <locationY>758</locationY>
         <actionName>c:fcFlowToaster</actionName>
         <actionType>component</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -35,71 +35,6 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>54.0</apiVersion>
-    <assignments>
-        <name>Assign_Journal_Details</name>
-        <label>Assign Journal Details</label>
-        <locationX>176</locationX>
-        <locationY>638</locationY>
-        <assignmentItems>
-            <assignToReference>JOURNAL_ENTRY.CRM_Thread__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Create_Thread</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>JOURNAL_ENTRY.CRM_Created_By_Ident__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$User.CRM_NAV_Ident__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>JOURNAL_ENTRY.CRM_Created_By_NAV_Unit__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$User.Department</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>JOURNAL_ENTRY.NAV_Case_Reference__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>PERSON_NAV_CASES.selectedCaseId</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>JOURNAL_ENTRY.CRM_NAV_Case_Legacy_System__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>PERSON_NAV_CASES.selectedCaseLegacySystem</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>JOURNAL_ENTRY.Theme__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>PERSON_NAV_CASES.selectedCaseThemeSfId</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>JOURNAL_ENTRY.Journal_Entry_Status__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <stringValue>In Progress</stringValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>JOURNAL_ENTRY.Subtheme__c</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>PERSON_NAV_CASES.selectedSubthemeSfId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Create_Journal_Entry</targetReference>
-        </connector>
-    </assignments>
     <choices>
         <description>Choice to set that response in thread should generate task assigned to the sender</description>
         <name>RESPONSE_TO_ME</name>
@@ -160,7 +95,7 @@
         <locationX>176</locationX>
         <locationY>518</locationY>
         <connector>
-            <targetReference>Assign_Journal_Details</targetReference>
+            <targetReference>Create_Journal_Entry</targetReference>
         </connector>
         <inputAssignments>
             <field>CRM_From_User__c</field>
@@ -207,7 +142,7 @@
         <inputAssignments>
             <field>CRM_Assignee_NAV_Unit__c</field>
             <value>
-                <elementReference>$User.Department</elementReference>
+                <elementReference>AXSYS_UNITS.selectedUnitNumber</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -337,26 +272,6 @@
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
-                <fields>
-                    <name>RESPONSE_OPTION</name>
-                    <choiceReferences>RESPONSE_TO_UNIT</choiceReferences>
-                    <choiceReferences>RESPONSE_TO_ME</choiceReferences>
-                    <dataType>String</dataType>
-                    <defaultSelectedChoiceReference>RESPONSE_TO_ME</defaultSelectedChoiceReference>
-                    <fieldText>Svar til:</fieldText>
-                    <fieldType>RadioButtons</fieldType>
-                    <isRequired>true</isRequired>
-                    <visibilityRule>
-                        <conditionLogic>and</conditionLogic>
-                        <conditions>
-                            <leftValueReference>INFOMESSAGE_TOGGLE.value</leftValueReference>
-                            <operator>EqualTo</operator>
-                            <rightValue>
-                                <booleanValue>false</booleanValue>
-                            </rightValue>
-                        </conditions>
-                    </visibilityRule>
-                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
@@ -377,6 +292,78 @@
                 <isRequired>false</isRequired>
             </fields>
             <isRequired>false</isRequired>
+        </fields>
+        <fields>
+            <name>New_Dialogue_Screen_Section2</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>New_Dialogue_Screen_Section2_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>RESPONSE_OPTION</name>
+                    <choiceReferences>RESPONSE_TO_UNIT</choiceReferences>
+                    <choiceReferences>RESPONSE_TO_ME</choiceReferences>
+                    <dataType>String</dataType>
+                    <defaultSelectedChoiceReference>RESPONSE_TO_ME</defaultSelectedChoiceReference>
+                    <fieldText>Svar til:</fieldText>
+                    <fieldType>RadioButtons</fieldType>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>New_Dialogue_Screen_Section2_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>AXSYS_UNITS</name>
+                    <extensionName>c:diaAxsysUnitSelector</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>label</name>
+                        <value>
+                            <stringValue>Enhet:</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>New_Dialogue_Screen_Section2_Column3</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>INFOMESSAGE_TOGGLE.value</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>false</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
         </fields>
         <fields>
             <name>MESSAGE_INPUT</name>
@@ -403,7 +390,7 @@
             <inputParameters>
                 <name>inputTextRich</name>
                 <value>
-                    <stringValue></stringValue>
+                    <stringValue/>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -426,7 +413,7 @@
         <name>Create_Journal_Entry</name>
         <label>Create Journal Entry</label>
         <locationX>176</locationX>
-        <locationY>758</locationY>
+        <locationY>638</locationY>
         <connector>
             <targetReference>Success_Toast</targetReference>
         </connector>
@@ -452,7 +439,7 @@
         <inputAssignments>
             <name>Journal_Entry_Unit</name>
             <value>
-                <elementReference>$User.Department</elementReference>
+                <elementReference>AXSYS_UNITS.selectedUnitNumber</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>

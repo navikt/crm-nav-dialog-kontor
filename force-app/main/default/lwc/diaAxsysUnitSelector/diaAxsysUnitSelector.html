@@ -1,0 +1,11 @@
+<template>
+    <lightning-combobox
+        name="unit"
+        label={label}
+        aria-label="Velg enhet"
+        disabled={selectionDisabled}
+        value={selectedUnitId}
+        options={unitOptions}
+        onchange={handleSelect}
+    ></lightning-combobox>
+</template>
