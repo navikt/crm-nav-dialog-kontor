@@ -72,4 +72,16 @@ export default class DiaAxsysUnitSelector extends LightningElement {
             console.log('Error: ' + JSON.stringify(error, null, 2));
         }
     }
+
+    @api
+    validate() {
+        if (this.selectedUnitNumber) {
+            return { isValid: true };
+        } else {
+            return {
+                isValid: false,
+                errorMessage: 'Du må velge en enhet.'
+            };
+        }
+    }
 }
