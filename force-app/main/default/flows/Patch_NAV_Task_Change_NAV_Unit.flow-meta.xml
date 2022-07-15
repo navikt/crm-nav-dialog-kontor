@@ -33,7 +33,7 @@
         <inputParameters>
             <name>assignToUnitNumber</name>
             <value>
-                <elementReference>New_NAV_Unit.recordId</elementReference>
+                <elementReference>New_NAV_Unit_Record.INT_UnitNumber__c</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -144,6 +144,10 @@
                 <elementReference>New_NAV_Unit.recordId</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>NAV_TASK_RECORD.NKS_Assignee__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
         <connector>
             <targetReference>Process_NAV_Task</targetReference>
         </connector>
@@ -232,7 +236,7 @@
         <expression>IF(ISBLANK({!$User.CRM_NAV_Ident__c}),
 &apos;--- &apos; + {!Format_datetime} + &apos; ---&apos;,
 &apos;--- &apos; + {!Format_datetime}  + &apos; &apos; + {!$User.FirstName} + &apos; &apos; + {!$User.LastName} + &apos; (&apos; + {!$User.CRM_NAV_Ident__c} + &apos;, &apos; + {!$User.Department} + &apos;) ---&apos;
-) + {!NEWLINE} + &apos;Tilordnet enhet ble endret fra Old_NAV_Unit_Record.INT_UnitNumber__c til New_NAV_Unit_Record.INT_UnitNumber__c.&apos;</expression>
+) + {!NEWLINE} + &apos;Oppgaven er flyttet fra enhet &apos; + {!Old_NAV_Unit_Record.INT_UnitNumber__c} +  &apos; til &apos; + {!New_NAV_Unit_Record.INT_UnitNumber__c} + IF(ISBLANK({!NAV_Task_Assignee}), &apos;.&apos;, &apos;, fra saksbehandler &apos; + {!NAV_Task_Assignee} + &apos; til &lt;ingen&gt;.&apos;)</expression>
     </formulas>
     <interviewLabel>Change {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Patch NAV Task Change NAV Unit</label>
@@ -279,6 +283,7 @@
         <queriedFields>INT_External_Reference__c</queriedFields>
         <queriedFields>NKS_Task_Version__c</queriedFields>
         <queriedFields>NKS_Comments__c</queriedFields>
+        <queriedFields>NKS_Assignee__c</queriedFields>
     </recordLookups>
     <recordLookups>
         <name>Get_New_NAV_Unit_Number</name>
@@ -394,8 +399,9 @@
     <status>Active</status>
     <textTemplates>
         <name>NEWLINE</name>
-        <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;{!EMPTY_STRING}&lt;/p&gt;&lt;p&gt;{!EMPTY_STRING}&lt;/p&gt;</text>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>{!EMPTY_STRING}
+{!EMPTY_STRING}</text>
     </textTemplates>
     <variables>
         <name>EMPTY_STRING</name>
@@ -405,6 +411,16 @@
         <isOutput>false</isOutput>
         <value>
             <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>NAV_Task_Assignee</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <elementReference>NAV_TASK_RECORD.NKS_Assignee__c</elementReference>
         </value>
     </variables>
     <variables>
