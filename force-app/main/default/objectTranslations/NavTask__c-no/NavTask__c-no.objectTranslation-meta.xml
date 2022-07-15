@@ -34,23 +34,38 @@
     <layouts>
         <layout>NAV Task Layout</layout>
         <sections>
-            <label><!-- Beskrivelse --></label>
+            <label></label>
             <section>Beskrivelse</section>
         </sections>
         <sections>
-            <label><!-- Custom Links --></label>
+            <label></label>
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label><!-- Intern oppfølging --></label>
+            <label></label>
             <section>Intern oppfølging</section>
         </sections>
         <sections>
-            <label><!-- Opplysninger --></label>
+            <label></label>
             <section>Opplysninger</section>
         </sections>
     </layouts>
-    <nameFieldLabel><!-- Navn --></nameFieldLabel>
+    <nameFieldLabel></nameFieldLabel>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Rediger oppgave</label>
+        <name>CRM_Edit_NAV_Task</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Send til fellesbenken</label>
+        <name>CRM_Remove_Assignee</name>
+    </quickActions>
+    <quickActions>
+        <aspect>Master</aspect>
+        <label>Endre enhetsbenk</label>
+        <name>Change_NAV_Unit</name>
+    </quickActions>
     <quickActions>
         <aspect>Master</aspect>
         <label>Ferdigstill oppgave</label>
@@ -72,12 +87,12 @@
         <name>DIA_New_Thread</name>
     </quickActions>
     <recordTypes>
-        <description><!-- Record type for NAV tasks related to dialogues --></description>
-        <label><!-- Dialogue Task --></label>
+        <description></description>
+        <label></label>
         <name>NAV_Dialogue_Task</name>
     </recordTypes>
     <validationRules>
-        <errorMessage><!-- Du må bekrefte at feltet &quot;Kommentarer&quot; ikke inneholder personsensitive opplysninger --></errorMessage>
+        <errorMessage></errorMessage>
         <name>No_person_information_added</name>
     </validationRules>
 </CustomObjectTranslation>

@@ -4,7 +4,7 @@
         <name>Format_datetime</name>
         <label>Format datetime</label>
         <locationX>182</locationX>
-        <locationY>278</locationY>
+        <locationY>398</locationY>
         <actionName>CRM_FlowUtils</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -23,13 +23,19 @@
         <name>Process_NAV_Task</name>
         <label>Process NAV Task</label>
         <locationX>182</locationX>
-        <locationY>758</locationY>
+        <locationY>998</locationY>
         <actionName>CRM_NavTaskManager</actionName>
         <actionType>apex</actionType>
         <connector>
             <targetReference>Validate_Callout</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>assignToUnitNumber</name>
+            <value>
+                <elementReference>New_NAV_Unit.recordId</elementReference>
+            </value>
+        </inputParameters>
         <inputParameters>
             <name>requestType</name>
             <value>
@@ -48,7 +54,7 @@
         <name>Show_Error_Toast</name>
         <label>Show Error Toast</label>
         <locationX>314</locationX>
-        <locationY>998</locationY>
+        <locationY>1238</locationY>
         <actionName>c:fcFlowToaster</actionName>
         <actionType>component</actionType>
         <connector>
@@ -85,7 +91,7 @@
         <name>Show_Success_Toast</name>
         <label>Show Success Toast</label>
         <locationX>50</locationX>
-        <locationY>1118</locationY>
+        <locationY>1358</locationY>
         <actionName>c:fcFlowToaster</actionName>
         <actionType>component</actionType>
         <connector>
@@ -123,7 +129,7 @@
         <name>NAV_Task_Assignment</name>
         <label>NAV Task Assignment</label>
         <locationX>182</locationX>
-        <locationY>638</locationY>
+        <locationY>878</locationY>
         <assignmentItems>
             <assignToReference>NAV_TASK_RECORD.NKS_Comments__c</assignToReference>
             <operator>Assign</operator>
@@ -135,7 +141,7 @@
             <assignToReference>NAV_TASK_RECORD.CRM_NavUnit__c</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>New_NAV_Unit</elementReference>
+                <elementReference>New_NAV_Unit.recordId</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -143,10 +149,26 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Set_old_NAV_unit</name>
+        <label>Set old NAV unit</label>
+        <locationX>182</locationX>
+        <locationY>278</locationY>
+        <assignmentItems>
+            <assignToReference>Old_NAV_Unit_Record.INT_UnitNumber__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>NAV_TASK_RECORD.CRM_NavUnit__r.INT_UnitNumber__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Format_datetime</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Update_comment</name>
         <label>Update comment</label>
         <locationX>182</locationX>
-        <locationY>518</locationY>
+        <locationY>758</locationY>
         <assignmentItems>
             <assignToReference>NEW_COMMENT</assignToReference>
             <operator>Assign</operator>
@@ -183,7 +205,7 @@
         <name>Validate_Callout</name>
         <label>Validate Callout</label>
         <locationX>182</locationX>
-        <locationY>878</locationY>
+        <locationY>1118</locationY>
         <defaultConnector>
             <targetReference>Show_Error_Toast</targetReference>
         </defaultConnector>
@@ -210,7 +232,7 @@
         <expression>IF(ISBLANK({!$User.CRM_NAV_Ident__c}),
 &apos;--- &apos; + {!Format_datetime} + &apos; ---&apos;,
 &apos;--- &apos; + {!Format_datetime}  + &apos; &apos; + {!$User.FirstName} + &apos; &apos; + {!$User.LastName} + &apos; (&apos; + {!$User.CRM_NAV_Ident__c} + &apos;, &apos; + {!$User.Department} + &apos;) ---&apos;
-) + {!NEWLINE} + &apos;Tilordnet enhet ble endret fra Old_NAV_Unit til New_NAV_Unit.&apos;</expression>
+) + {!NEWLINE} + &apos;Tilordnet enhet ble endret fra Old_NAV_Unit_Record.INT_UnitNumber__c til New_NAV_Unit_Record.INT_UnitNumber__c.&apos;</expression>
     </formulas>
     <interviewLabel>Change {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Patch NAV Task Change NAV Unit</label>
@@ -240,7 +262,7 @@
         <locationY>158</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Format_datetime</targetReference>
+            <targetReference>Set_old_NAV_unit</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -258,11 +280,33 @@
         <queriedFields>NKS_Task_Version__c</queriedFields>
         <queriedFields>NKS_Comments__c</queriedFields>
     </recordLookups>
+    <recordLookups>
+        <name>Get_New_NAV_Unit_Number</name>
+        <label>Get New NAV Unit Number</label>
+        <locationX>182</locationX>
+        <locationY>638</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_comment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>New_NAV_Unit.recordId</elementReference>
+            </value>
+        </filters>
+        <object>NavUnit__c</object>
+        <outputReference>New_NAV_Unit_Record</outputReference>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>INT_UnitNumber__c</queriedFields>
+    </recordLookups>
     <recordUpdates>
         <name>Update_Salesforce_Task</name>
         <label>Update Salesforce Task</label>
         <locationX>50</locationX>
-        <locationY>998</locationY>
+        <locationY>1238</locationY>
         <connector>
             <targetReference>Show_Success_Toast</targetReference>
         </connector>
@@ -272,19 +316,38 @@
         <name>Change_NAV_Unit</name>
         <label>Change NAV Unit</label>
         <locationX>182</locationX>
-        <locationY>398</locationY>
+        <locationY>518</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Update_comment</targetReference>
+            <targetReference>Get_New_NAV_Unit_Number</targetReference>
         </connector>
         <fields>
             <name>New_NAV_Unit</name>
-            <dataType>String</dataType>
-            <fieldText>Ny enhetsbenk</fieldText>
-            <fieldType>InputField</fieldType>
+            <extensionName>flowruntime:lookup</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>fieldApiName</name>
+                <value>
+                    <stringValue>CRM_NavUnit__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>New NAV Unit</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>objectApiName</name>
+                <value>
+                    <stringValue>NavTask__c</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <nextOrFinishButtonLabel>Lagre</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -294,7 +357,7 @@
         <name>Flow_Complete_Screen</name>
         <label>Flow Complete Screen</label>
         <locationX>182</locationX>
-        <locationY>1334</locationY>
+        <locationY>1574</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -328,7 +391,7 @@
             <targetReference>Get_NAV_Task</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>NEWLINE</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
@@ -360,14 +423,20 @@
         <isOutput>false</isOutput>
     </variables>
     <variables>
-        <name>Old_NAV_Unit</name>
-        <dataType>String</dataType>
+        <name>New_NAV_Unit_Record</name>
+        <dataType>SObject</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
-        <value>
-            <elementReference>NAV_TASK_RECORD.CRM_NavUnit__c</elementReference>
-        </value>
+        <objectType>NavUnit__c</objectType>
+    </variables>
+    <variables>
+        <name>Old_NAV_Unit_Record</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>NavUnit__c</objectType>
     </variables>
     <variables>
         <name>recordId</name>
