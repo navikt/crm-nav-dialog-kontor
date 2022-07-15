@@ -34,33 +34,33 @@
     <layouts>
         <layout>NAV Task Layout</layout>
         <sections>
-            <label></label>
+            <label>
+                <!-- Beskrivelse -->
+            </label>
             <section>Beskrivelse</section>
         </sections>
         <sections>
-            <label></label>
+            <label>
+                <!-- Custom Links -->
+            </label>
             <section>Custom Links</section>
         </sections>
         <sections>
-            <label></label>
+            <label>
+                <!-- Intern oppfølging -->
+            </label>
             <section>Intern oppfølging</section>
         </sections>
         <sections>
-            <label></label>
+            <label>
+                <!-- Opplysninger -->
+            </label>
             <section>Opplysninger</section>
         </sections>
     </layouts>
-    <nameFieldLabel></nameFieldLabel>
-    <quickActions>
-        <aspect>Master</aspect>
-        <label>Rediger oppgave</label>
-        <name>CRM_Edit_NAV_Task</name>
-    </quickActions>
-    <quickActions>
-        <aspect>Master</aspect>
-        <label>Send til fellesbenken</label>
-        <name>CRM_Remove_Assignee</name>
-    </quickActions>
+    <nameFieldLabel>
+        <!-- Navn -->
+    </nameFieldLabel>
     <quickActions>
         <aspect>Master</aspect>
         <label>Endre enhetsbenk</label>
@@ -87,12 +87,18 @@
         <name>DIA_New_Thread</name>
     </quickActions>
     <recordTypes>
-        <description></description>
-        <label></label>
+        <description>
+            <!-- Record type for NAV tasks related to dialogues -->
+        </description>
+        <label>
+            <!-- Dialogue Task -->
+        </label>
         <name>NAV_Dialogue_Task</name>
     </recordTypes>
     <validationRules>
-        <errorMessage></errorMessage>
+        <errorMessage>
+            <!-- Du må bekrefte at feltet &quot;Kommentarer&quot; ikke inneholder personsensitive opplysninger -->
+        </errorMessage>
         <name>No_person_information_added</name>
     </validationRules>
 </CustomObjectTranslation>
