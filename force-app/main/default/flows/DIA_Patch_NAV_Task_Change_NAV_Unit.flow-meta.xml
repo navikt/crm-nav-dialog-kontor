@@ -396,7 +396,7 @@
             <targetReference>Get_NAV_Task</targetReference>
         </connector>
     </start>
-    <status>Draft</status>
+    <status>Active</status>
     <textTemplates>
         <name>NEWLINE</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
