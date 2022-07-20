@@ -337,18 +337,7 @@
                 <inputParameters>
                     <name>width</name>
                     <value>
-                        <stringValue>4</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>New_Dialogue_Screen_Section2_Column3</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>3</stringValue>
+                        <stringValue>7</stringValue>
                     </value>
                 </inputParameters>
                 <isRequired>false</isRequired>
