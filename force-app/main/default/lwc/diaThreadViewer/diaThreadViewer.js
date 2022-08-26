@@ -12,7 +12,7 @@ export default class DiaThreadViewer extends LightningElement {
     wiremessages(result) {
         if (result.error) {
             this.error = result.error;
-            console.log('Error: ' + JSON.stringify(error, null, 2));
+            console.log('Error: ' + JSON.stringify(result.error, null, 2));
         } else if (result.data) {
             this.messages = result.data;
         }
@@ -22,7 +22,7 @@ export default class DiaThreadViewer extends LightningElement {
     wireNotes(result) {
         if (result.error) {
             this.error = result.error;
-            console.log('Error: ' + JSON.stringify(error, null, 2));
+            console.log('Error: ' + JSON.stringify(result.error, null, 2));
         } else if (result.data) {
             this.messages = this.convertConvNoteToMessages(result.data);
         }
