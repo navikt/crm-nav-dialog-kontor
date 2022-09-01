@@ -189,6 +189,7 @@
         <queriedFields>Id</queriedFields>
         <queriedFields>Name</queriedFields>
         <queriedFields>INT_ActorId__c</queriedFields>
+        <queriedFields>NKS_Full_Name__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <runInMode>SystemModeWithSharing</runInMode>
@@ -379,7 +380,13 @@
             <inputParameters>
                 <name>inputTextRich</name>
                 <value>
-                    <stringValue/>
+                    <stringValue></stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>inputText</name>
+                <value>
+                    <stringValue>Hei {!Get_Person.NKS_Full_Name__c},</stringValue>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
