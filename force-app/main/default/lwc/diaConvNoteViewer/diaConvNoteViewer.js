@@ -11,7 +11,7 @@ export default class DiaConvNoteViewer extends LightningElement {
     wireNotes(result) {
         if (result.error) {
             this.error = true;
-            console.log('Error: ' + JSON.stringify(error, null, 2));
+            console.log('Error: ' + JSON.stringify(result.error, null, 2));
         } else if (result.data) {
             this.conversationNote = result.data[0];
         }
