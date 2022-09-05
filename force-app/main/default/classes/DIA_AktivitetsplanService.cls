@@ -25,24 +25,7 @@ public with sharing class DIA_AktivitetsplanService {
         String errorRef = logError(response, 'Error from getOppfolgingsInfo.');
         throw new getOppfolgingDataException('Feil henting oppfolgingsinfo: ' + errorRef);
     }
-    public static HttpResponse getOppfolgingsPerioderService(String ident) {
-        Map<String, String> queryParams = new Map<String, String>{ 'aktorId' => ident };
-        ApiController apiCtrl = new ApiController();
-        apiCtrl.initRequest(API_CONFIG_NAME, SERVICE_NAME.get('perioder'));
-        apiCtrl.addServiceAuthHeader(SERVICE_AUTH_HEADER);
-        apiCtrl.addHeader('Content-Type', 'application/json');
-        apiCtrl.setUrlParams(queryParams);
-        apiCtrl.doCallout();
-        return apiCtrl.getResponse();
-    }
-    public static APlan_Oppfolgingsperioder getOppfolgingsPerioder(String ident) {
-        HttpResponse response = getOppfolgingsPerioderService(ident);
-        if (response.getStatusCode() == 200) {
-            return (APlan_Oppfolgingsperioder) JSON.deserialize(response.getBody(), APlan_Oppfolgingsperioder.class);
-        }
-        String errorRef = logError(response, 'Error from getOppfolgingsperioder.');
-        throw new getOppfolgingDataException('Feil henting oppfolgingsperioder: ' + errorRef);
-    }
+
     private static String logError(HttpResponse resp, String message) {
         String errorRef = '';
 
@@ -53,6 +36,7 @@ public with sharing class DIA_AktivitetsplanService {
 
         return errorRef;
     }
+    
     public class getOppfolgingDataException extends Exception {
     }
 }
