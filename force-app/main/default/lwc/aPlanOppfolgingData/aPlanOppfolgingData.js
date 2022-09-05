@@ -1,4 +1,4 @@
-import { wire, api } from 'lwc';
+import { LightningElement, wire, api } from 'lwc';
 import getOppfolgingsInfo from '@salesforce/apex/DIA_AktivitetsplanController.getOppfolgingsInfo';
 import CASE_ACCOUNT_FIELD from '@salesforce/schema/Case.AccountId';
 import ACCOUNT_ID_FIELD from '@salesforce/schema/Account.Id';
@@ -6,7 +6,7 @@ import ACCOUNT_PERSON_FIELD from '@salesforce/schema/Account.CRM_Person__c';
 import PERSON_ACTORID_FIELD from '@salesforce/schema/Person__c.INT_ActorId__c';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 
-export default class APlanOppfolgingData {
+export default class APlanOppfolgingData extends LightningElement {
     //@api actorId;
     @api recordId;
     @api objectApiName;
