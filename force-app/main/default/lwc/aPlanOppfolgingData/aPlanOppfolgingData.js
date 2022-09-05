@@ -1,6 +1,6 @@
 import { LightningElement, wire, api } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import getOppfolgingsInfo from '@salesforce/apex/NKS_AktivitetsplanController.getOppfolgingsInfo';
+import getOppfolgingsInfo from '@salesforce/apex/DIA_AktivitetsplanController.getOppfolgingsInfo';
 import CASE_ACCOUNT_FIELD from '@salesforce/schema/Case.AccountId';
 import ACCOUNT_ID_FIELD from '@salesforce/schema/Account.Id';
 import ACCOUNT_PERSON_FIELD from '@salesforce/schema/Account.CRM_Person__c';
