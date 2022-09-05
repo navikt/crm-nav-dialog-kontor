@@ -1,0 +1,44 @@
+<template>
+    <article class="slds-card slds-is-relative" style="min-height: 5em">
+        <lightning-spinner if:true={isLoading} size="medium" variant="brand"> </lightning-spinner>
+        <div if:false={isLoading} class="slds-card__header">
+            <header>
+                <h2 class="slds-card__header-title">{cardTitle}</h2>
+            </header>
+            <div if:true={underOppfolging} class="slds-card__body">
+                <p>Veileder: {veileder}</p>
+                <p>Oppfølgingsenhet: {oppfolgingsenhet.navn} ({oppfolgingsenhet.enhetId})</p>
+            </div>
+            <lightning-layout class="slds-p-top_x-small">
+                <lightning-layout-item flexibility="grow" class="slds-p-right_small">
+                    <button
+                        class="slds-button slds-button_stretch slds-button_outline-brand slds-var-p-vertical_xx-small text-color"
+                        onclick={viewOppfolging}
+                        disabled={ikkeUnderOppfolging}
+                    >
+                        <lightning-icon
+                            class="slds-p-right_x-small icon-color"
+                            size="x-small"
+                            icon-name="utility:people"
+                            variant={oppfolgingIconVariant}
+                        ></lightning-icon>
+                        <strong>Oppfølging</strong>
+                    </button>
+                </lightning-layout-item>
+                <lightning-layout-item flexibility="grow">
+                    <button
+                        class="slds-button slds-button_stretch slds-button_outline-brand slds-var-p-vertical_xx-small text-color"
+                        onclick={viewMeldekort}
+                    >
+                        <lightning-icon
+                            class="slds-p-right_x-small icon-color"
+                            size="x-small"
+                            icon-name="utility:summarydetail"
+                        ></lightning-icon>
+                        <strong>Meldekort</strong>
+                    </button>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </article>
+</template>
