@@ -4,4 +4,6 @@
         <apexClass>DIA_AktivitetsplanController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Activity Plan Access (veileder)</label>
 </PermissionSet>
