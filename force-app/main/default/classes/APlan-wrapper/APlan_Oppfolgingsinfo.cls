@@ -5,8 +5,6 @@ public with sharing class APlan_Oppfolgingsinfo {
     public String primaerVeileder;
     @AuraEnabled
     public OppfolgingsEnhet OppfolgingsEnhet;
-    @AuraEnabled
-    public List<APlan_Feil> feil;
 
     public class OppfolgingsEnhet {
         @AuraEnabled
