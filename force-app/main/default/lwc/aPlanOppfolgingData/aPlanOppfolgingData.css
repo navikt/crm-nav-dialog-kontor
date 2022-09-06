@@ -1,0 +1,11 @@
+.text-color {
+    --lwc-brandTextLink: rgb(1, 118, 211);
+}
+
+.box-color {
+    --lwc-colorBorder: rgb(1, 118, 211);
+}
+
+.icon-color {
+    --sds-c-icon-color-foreground-default: var(--lwc-brandAccessible);
+}
