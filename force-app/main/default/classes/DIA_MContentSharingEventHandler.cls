@@ -38,21 +38,10 @@ public with sharing class DIA_MContentSharingEventHandler extends RecordSharingE
             contentShare.RowCause = 'Manual';
             messageContentShares.add(contentShare);
         }
-        insert messageContentShares;
+        new CRM_DatabaseOperations().setNumberOfRetries(1).setDomain(CRM_ApplicationDomain.Domain.NKS).insertRecords(messageContentShares);
     } catch (Exception ex) {
         String recordIdsString = String.join( recordIds, ', ' );  
-        logger.error(
-
-            'Failed to share records: ' +
-            recordIdsString +
-            '\n' +
-            ex.getMessage() +
-            '\n' +
-            ex.getStackTraceString(),
-            null,
-            CRM_ApplicationDomain.Domain.NKS,
-            null
-        );
+        logger.error('Failed to share records: ' + recordIdsString + '\n' + ex.getMessage() + '\n' + ex.getStackTraceString(), null, CRM_ApplicationDomain.Domain.NKS, null);
     } finally {
         logger.publish();
     }
@@ -95,7 +84,7 @@ public with sharing class DIA_MContentSharingEventHandler extends RecordSharingE
                 WHERE RowCause = 'Manual' AND ParentId=:recordIds
             ];
             if(toDelete.size()>0){
-                delete toDelete;
+                new CRM_DatabaseOperations().setNumberOfRetries(1).setDomain(CRM_ApplicationDomain.Domain.NKS).deleteRecords(toDelete);
             }
     }
 }
