@@ -4,7 +4,6 @@
             "path": "force-app",
             "default": true,
             "package": "crm-nav-dialog-kontor",
-            "versionName": "ver 0.1",
             "versionNumber": "0.10.0.NEXT",
             "dependencies": [
                 {
